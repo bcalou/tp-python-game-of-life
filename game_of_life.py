@@ -4,7 +4,6 @@ import constants
 pygame.init()
 
 screen: pygame.surface.Surface = pygame.display.set_mode((constants.screen_size))
-print(screen)
 clock = pygame.time.Clock()
 
 done: bool = False
@@ -19,10 +18,30 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    print("Update !")
+    #print("Update !")
 
     screen.fill((constants.screen_fill))
-    pygame.draw.rect(screen, (255, 255, 255), (0, 0, 100, 100))
+
+    initial_state: list[list[int]] = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 1, 0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+
+    cell_size_x : float = constants.screen_size[0] / len(initial_state)
+    cell_size_y : float = constants.screen_size[1] / len(initial_state)
+
+    for y in range(len(initial_state)):
+        for x in range(len(initial_state)):
+            if initial_state[y][x] == 1:
+                pygame.draw.rect(screen, (255, 255, 255), (x*cell_size_x, y*cell_size_y, cell_size_x, cell_size_y))
     pygame.display.flip()
 
     clock.tick(1)
