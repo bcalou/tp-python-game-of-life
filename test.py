@@ -1,4 +1,4 @@
-from game_of_life.game import get_next_state
+from game_of_life import get_next_state
 
 # Ce fichier attend qu'une fonction get_next_state, prenant en paramètre un
 # état et en renvoyant un autre, soit déclarée dans le fichier
