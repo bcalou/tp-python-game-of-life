@@ -10,9 +10,9 @@ class Cell:
 
     def updateColor(self):
         if self.isAlive:
-            self.color : tuple[int, int, int] = white
-        else:
             self.color : tuple[int, int, int] = black
+        else:
+            self.color : tuple[int, int, int] = white
 
     def setState(self, isAlive):
         self.isAlive = isAlive
@@ -20,11 +20,11 @@ class Cell:
 
     def testSurvivability(self, alive_neighbor):
         if self.isAlive and alive_neighbor in [2, 3]:
-            pass
+            self.setState(True)
         elif not self.isAlive and alive_neighbor == 3:
             self.setState(True)
         else:
             self.setState(False)
 
     def __repr__(self) -> str:
-        return "1" if self.isAlive else "0"
+        return "O" if self.isAlive else "X"
