@@ -5,7 +5,7 @@ from wac_render.wac_3DPoint import ThreeDPoint, print3DPoint, set3DPoint, print3
 from wac_render.wac_pointConverter import convertPoint, rotateAxisX, rotateAxisY
 from wac_render.wac_var import WIDTH, HEIGHT
 from wac_render.wac_3DPolygon import ThreeDPolygon, print3DPolygon, get3Dpoints,get2DPolygon, set3DPolygon,getNativePointList,print2DPolygon
-
+from wac_cube.wac_3DCube import generate3DCube
 pygame.init()
 
 
@@ -15,75 +15,11 @@ clock = pygame.time.Clock()
 
 done: bool = False
 
-cube: list[ThreeDPolygon] = []
+cubes: list[list[ThreeDPolygon]] = []
 
-#instanciate square faces as polygons
-for i in range(0, 5):
-    _p: ThreeDPolygon  = ThreeDPolygon()
-    cube.append(_p)
-
-_left: list[ThreeDPoint] = []
-_right: list[ThreeDPoint] = []
-_top: list[ThreeDPoint] = []
-_bottom: list[ThreeDPoint] = []
-_front: list[ThreeDPoint] = []
-_back: list[ThreeDPoint] = []
-
-for i in range(0, 4):
-    point: ThreeDPoint  = ThreeDPoint()
-    _left.append(point)
-for i in range(0, 4):
-    point: ThreeDPoint  = ThreeDPoint()
-    _right.append(point)
-for i in range(0, 4):
-    point: ThreeDPoint  = ThreeDPoint()
-    _top.append(point)
-for i in range(0, 4):
-    point: ThreeDPoint  = ThreeDPoint()
-    _bottom.append(point)
-for i in range(0, 4):
-    point: ThreeDPoint  = ThreeDPoint()
-    _front.append(point)
-for i in range(0, 4):
-    point: ThreeDPoint  = ThreeDPoint()
-    _back.append(point)
-
-set3DPoint(_left[0], 0, 0, 0)
-set3DPoint(_left[1], 100, 0, 0)
-set3DPoint(_left[2], 100, 100, 0)
-set3DPoint(_left[3], 0, 100, 0)
-
-set3DPoint(_right[0], 0, 0, 100)
-set3DPoint(_right[1], 100, 0, 100)
-set3DPoint(_right[2], 100, 100, 100)
-set3DPoint(_right[3], 0, 100, 100)
-
-set3DPoint(_top[0], 100,  0, 0)
-set3DPoint(_top[1], 100, 100, 0)
-set3DPoint(_top[2], 100, 100, 100)
-set3DPoint(_top[3], 100, 0, 100)
-
-set3DPoint(_bottom[0], 0, 0, 0)
-set3DPoint(_bottom[1], 0, 100, 0)
-set3DPoint(_bottom[2], 0, 100, 100)
-set3DPoint(_bottom[3], 0, 0, 100)
-
-set3DPoint(_front[0], 0, 100, 100)
-set3DPoint(_front[1], 100, 100, 100)
-set3DPoint(_front[2], 100, 100, 0)
-set3DPoint(_front[3], 0, 100, 0)
-
-set3DPoint(_back[0], 0, 100, 100)
-set3DPoint(_back[1], 100, 100, 100)
-set3DPoint(_back[2], 100, 100, 0)
-set3DPoint(_back[3], 0, 100, 0)
-
-set3DPolygon(cube[0], _left)
-set3DPolygon(cube[1], _right)
-set3DPolygon(cube[2], _top)
-set3DPolygon(cube[3], _bottom)
-set3DPolygon(cube[4], _front)
-#ajouter back !!!
+for i in range(100):
+    for j in range(100):
+        cubes.append(generate3DCube(i * 100,j * 100))
 
 def Rotate_polygon(poly: ThreeDPolygon, timeline: float )-> None:
     for i in range(len(poly.points)):
@@ -122,8 +58,9 @@ def Get3DPolygonLayers(layer_list: list[ThreeDPolygon])-> list[ThreeDPolygon]:
 time : float = 0
 
 #enable rotation
-for i in range (len(cube)):
-    Rotate_polygon(cube[i], 1)
+for i in range (len(cubes)):
+    for j in range(len(cubes[i])):
+        Rotate_polygon(cubes[i][j], 1)
 
 while not done:
     for event in pygame.event.get():
@@ -132,23 +69,25 @@ while not done:
 
     screen.fill((0, 0, 0))
 
-    #print3DPolygon(cube[0])
+    #reajust layers 
+    for i in range (len(cubes)):
+        for j in range(len(cubes[i])):
+            cubes[i] = Get3DPolygonLayers(cubes[i])
 
-    cube = Get3DPolygonLayers(cube)
-
-    for i in range(len(cube)):
-        c: color
-        if (i == 0):
-            c = (0,255,255)
-        if (i == 1):
-            c = (255,0,255)
-        if (i == 2):
-            c = (255,255,0)
-        if (i == 3):
-            c = (0,255,0)
-        if (i == 4):
-            c = (0,0,255)
-        pygame.draw.polygon(surface=screen, color=c, points=getNativePointList(cube[i]))
+    for i in range (len(cubes)):
+        for j in range(len(cubes[i])):
+            c: color
+            if (j == 0):
+                c = (0,255,255)
+            if (j == 1):
+                c = (255,0,255)
+            if (j == 2):
+                c = (255,255,0)
+            if (j == 3):
+                c = (0,255,0)
+            if (j == 4):
+                c = (0,0,255)
+            pygame.draw.polygon(surface=screen, color=c, points=getNativePointList(cubes[i][j]))
 
     pygame.display.flip()
     #print("time " + str(time))

@@ -2,8 +2,10 @@ from wac_render.wac_2DPoint import TwoDPoint, set2DPoint
 from wac_render.wac_3DPoint import ThreeDPoint, print3DPoint, set3DPoint
 import math 
 def convertPoint(height_screen:int, width_screen:int, _p: ThreeDPoint):
-    x2D: int = (int) (height_screen / 2 +_p.y)
-    y2D: int = (int) (width_screen / 2 +_p.z)
+    # x2D: int = (int) (height_screen / 2 +_p.y)
+    # y2D: int = (int) (width_screen / 2 +_p.z)
+    x2D: int = (int) (_p.y * 1/15)
+    y2D: int = (int) (_p.z * 1/15)
     p: TwoDPoint = TwoDPoint()
     p = set2DPoint(p, x2D, y2D)
     return p
