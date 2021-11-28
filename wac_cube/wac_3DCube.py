@@ -1,7 +1,7 @@
 from wac_render.wac_3DPolygon import ThreeDPolygon, print3DPolygon, get3Dpoints, get2DPolygon, set3DPolygon,getNativePointList,print2DPolygon
 from wac_render.wac_3DPoint import ThreeDPoint, print3DPoint, set3DPoint, print3DPoint
 
-
+#enable creation of 3d cube with x and y offset as inputs
 def generate3DCube(offset_x: float, offset_y: float) -> list[ThreeDPolygon] :
     cube: list[ThreeDPolygon] = []
 

@@ -1,13 +1,15 @@
 import pygame
-from pygame import Color, color
-from pygame.draw import polygon
-from wac_render.wac_3DPoint import ThreeDPoint, print3DPoint, set3DPoint, print3DPoint
-from wac_render.wac_pointConverter import convertPoint, rotateAxisX, rotateAxisY
-from wac_render.wac_var import WIDTH, HEIGHT
-from wac_render.wac_3DPolygon import ThreeDPolygon, print3DPolygon, get3Dpoints,get2DPolygon, set3DPolygon,getNativePointList,print2DPolygon
+from pygame import Vector2, color
+from wac_render.wac_3DPoint import set3DPoint
+from wac_render.wac_pointConverter import rotateAxisX
+from wac_render.wac_var import WIDTH, HEIGHT, SIZE_X, SIZE_Y
+from wac_render.wac_3DPolygon import ThreeDPolygon, get3Dpoints,getNativePointList, print3DPolygon
 from wac_cube.wac_3DCube import generate3DCube
-pygame.init()
+from wac_rules.wac_basicgrid import initial_state, IndexCube, setIndexCube
+from wac_rules.wac_gameoflife import behaviour
 
+#init pygame framework
+pygame.init()
 
 screen: pygame.surface.Surface = pygame.display.set_mode((HEIGHT, WIDTH))
 
@@ -17,15 +19,18 @@ done: bool = False
 
 cubes: list[list[ThreeDPolygon]] = []
 
-for i in range(100):
-    for j in range(100):
+#generate cube grid 
+for i in range(SIZE_X):
+    for j in range(SIZE_Y):
         cubes.append(generate3DCube(i * 100,j * 100))
 
+#enalbel rotation
 def Rotate_polygon(poly: ThreeDPolygon, timeline: float )-> None:
     for i in range(len(poly.points)):
-        #set3DPoint(poly.points[i],rotateAxisY(poly.points[i], timeline).x,rotateAxisY(poly.points[i], timeline).y,rotateAxisY(poly.points[i], timeline).z)
         set3DPoint(poly.points[i],rotateAxisX(poly.points[i], timeline).x,rotateAxisX(poly.points[i], timeline).y,rotateAxisX(poly.points[i], timeline).z)
 
+#get closest polygon from a couple a polygons
+# -> a very simple ray caster !
 def GetClosest_polygon(un: ThreeDPolygon, deux: ThreeDPolygon) -> ThreeDPolygon:
     somme_x: float = 0
     for i in range(len(get3Dpoints(un))):
@@ -41,12 +46,14 @@ def GetClosest_polygon(un: ThreeDPolygon, deux: ThreeDPolygon) -> ThreeDPolygon:
         return deux
     return un
 
+#permutate two polygons in a list with indexes
 def permutate_in_array(l: list[ThreeDPolygon], a: int, b: int)-> list[ThreeDPolygon]:
     tmp: ThreeDPolygon = l[a]
     l[a] = l[b]
     l[b] = tmp
     return l
 
+#return list of three d polygons with layers 
 def Get3DPolygonLayers(layer_list: list[ThreeDPolygon])-> list[ThreeDPolygon]:
     for i in range (len(layer_list)):
         for j in range (i+1, len(layer_list)):
@@ -55,13 +62,15 @@ def Get3DPolygonLayers(layer_list: list[ThreeDPolygon])-> list[ThreeDPolygon]:
             layer_list = permutate_in_array(layer_list, i,j);
     return layer_list
 
-time : float = 0
 
 #enable rotation
 for i in range (len(cubes)):
     for j in range(len(cubes[i])):
-        Rotate_polygon(cubes[i][j], 1)
+        Rotate_polygon(cubes[i][j], 20)
 
+world: list[list[int]] = initial_state
+
+#the real time loop
 while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -74,28 +83,35 @@ while not done:
         for j in range(len(cubes[i])):
             cubes[i] = Get3DPolygonLayers(cubes[i])
 
+    x: int = 0
+    y: int = 0
     for i in range (len(cubes)):
-        for j in range(len(cubes[i])):
-            c: color
-            if (j == 0):
-                c = (0,255,255)
-            if (j == 1):
-                c = (255,0,255)
-            if (j == 2):
-                c = (255,255,0)
-            if (j == 3):
-                c = (0,255,0)
-            if (j == 4):
-                c = (0,0,255)
-            pygame.draw.polygon(surface=screen, color=c, points=getNativePointList(cubes[i][j]))
+        if(x == SIZE_X):
+            y = y + 1
+            x = 0
+        if(world[x][y] == 1): 
+            for j in range(len(cubes[i])):
+                c: color
+                if (j == 0):
+                    c = (0,255,255)
+                if (j == 1):
+                    c = (255,0,255)
+                if (j == 2):
+                    c = (255,255,0)
+                if (j == 3):
+                    c = (0,255,0)
+                if (j == 4):
+                    c = (0,0,255)
+                pygame.draw.polygon(surface=screen, color=c, points=getNativePointList(cubes[i][j]))
+        x = x + 1
+
 
     pygame.display.flip()
-    #print("time " + str(time))
+    
+    #launch the world evolution
+    world = behaviour(world)
 
-    time = time + 5
-
-    #print("Update !")
-    clock.tick(5)
+    clock.tick(10)
 
 
 
