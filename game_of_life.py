@@ -1,7 +1,7 @@
 import pygame
 from pygame import Vector2, color
-from wac_render.wac_3DPoint import set3DPoint
-from wac_render.wac_pointConverter import rotateAxisX
+from wac_render.wac_3DPoint import ThreeDPoint, set3DPoint
+from wac_render.wac_pointConverter import rotateAxisX, rotateAxisY, rotateAxisZ
 from wac_render.wac_var import WIDTH, HEIGHT, SIZE_X, SIZE_Y
 from wac_render.wac_3DPolygon import ThreeDPolygon, get3Dpoints,getNativePointList, print3DPolygon
 from wac_cube.wac_3DCube import generate3DCube
@@ -15,6 +15,8 @@ screen: pygame.surface.Surface = pygame.display.set_mode((HEIGHT, WIDTH))
 
 clock = pygame.time.Clock()
 
+animated: bool = False
+
 done: bool = False
 
 cubes: list[list[ThreeDPolygon]] = []
@@ -27,7 +29,8 @@ for i in range(SIZE_X):
 #enalbel rotation
 def Rotate_polygon(poly: ThreeDPolygon, timeline: float )-> None:
     for i in range(len(poly.points)):
-        set3DPoint(poly.points[i],rotateAxisX(poly.points[i], timeline).x,rotateAxisX(poly.points[i], timeline).y,rotateAxisX(poly.points[i], timeline).z)
+        _p: ThreeDPoint = rotateAxisX(poly.points[i], timeline)
+        set3DPoint(poly.points[i],_p.x,_p.y,_p.z)
 
 #get closest polygon from a couple a polygons
 # -> a very simple ray caster !
@@ -62,11 +65,13 @@ def Get3DPolygonLayers(layer_list: list[ThreeDPolygon])-> list[ThreeDPolygon]:
             layer_list = permutate_in_array(layer_list, i,j);
     return layer_list
 
+time: float = 20
+
 
 #enable rotation
 for i in range (len(cubes)):
     for j in range(len(cubes[i])):
-        Rotate_polygon(cubes[i][j], 20)
+        Rotate_polygon(cubes[i][j], time)
 
 world: list[list[int]] = initial_state
 
@@ -77,6 +82,13 @@ while not done:
             done = True
 
     screen.fill((0, 0, 0))
+
+    if(animated):
+        #enable rotation
+        for i in range (len(cubes)):
+            for j in range(len(cubes[i])):
+                Rotate_polygon(cubes[i][j], time)
+        time = time + 0.5
 
     #reajust layers 
     for i in range (len(cubes)):
@@ -111,7 +123,7 @@ while not done:
     #launch the world evolution
     world = behaviour(world)
 
-    clock.tick(10)
+    clock.tick(1)
 
 
 
