@@ -21,7 +21,7 @@ done: bool = False
 
 cubes: list[list[ThreeDPolygon]] = []
 
-#generate cube grid 
+#generate cube grid
 for i in range(SIZE_X):
     for j in range(SIZE_Y):
         cubes.append(generate3DCube(i * 100,j * 100))
@@ -56,7 +56,7 @@ def permutate_in_array(l: list[ThreeDPolygon], a: int, b: int)-> list[ThreeDPoly
     l[b] = tmp
     return l
 
-#return list of three d polygons with layers 
+#return list of three d polygons with layers
 def Get3DPolygonLayers(layer_list: list[ThreeDPolygon])-> list[ThreeDPolygon]:
     for i in range (len(layer_list)):
         for j in range (i+1, len(layer_list)):
@@ -90,7 +90,7 @@ while not done:
                 Rotate_polygon(cubes[i][j], time)
         time = time + 0.5
 
-    #reajust layers 
+    #reajust layers
     for i in range (len(cubes)):
         for j in range(len(cubes[i])):
             cubes[i] = Get3DPolygonLayers(cubes[i])
@@ -101,7 +101,7 @@ while not done:
         if(x == SIZE_X):
             y = y + 1
             x = 0
-        if(world[x][y] == 1): 
+        if(world[x][y] == 1):
             for j in range(len(cubes[i])):
                 c: color
                 if (j == 0):
@@ -119,7 +119,7 @@ while not done:
 
 
     pygame.display.flip()
-    
+
     #launch the world evolution
     world = behaviour(world)
 
