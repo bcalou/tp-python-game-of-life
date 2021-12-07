@@ -6,7 +6,7 @@ from wac_render.wac_var import WIDTH, HEIGHT, SIZE_X, SIZE_Y
 from wac_render.wac_3DPolygon import ThreeDPolygon, get3Dpoints,getNativePointList, print3DPolygon
 from wac_cube.wac_3DCube import generate3DCube
 from wac_rules.wac_basicgrid import initial_state, IndexCube, setIndexCube
-from wac_rules.wac_gameoflife import behaviour
+from wac_rules.wac_gameoflife import get_next_state
 
 #init pygame framework
 pygame.init()
@@ -121,7 +121,7 @@ while not done:
     pygame.display.flip()
 
     #launch the world evolution
-    world = behaviour(world)
+    world = get_next_state(world)
 
     clock.tick(1)
 

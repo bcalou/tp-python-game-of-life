@@ -1,11 +1,11 @@
 from random import randint
 
 #return if cube is alive in function of its neighbours
-def behaviour_cell(alive, neighbours):
+def behaviour_cell(alive, neighbours) -> bool:
     return neighbours == 3 or (alive and neighbours == 2)
 
 #count neighbours around a cube
-def count_neighbours(grid, position):
+def count_neighbours(grid: list[list[int]], position) -> int:
     x,y = position
     neighbour_cells = [(x - 1, y - 1), (x - 1, y + 0), (x - 1, y + 1),
                        (x + 0, y - 1),                 (x + 0, y + 1),
@@ -41,13 +41,13 @@ def make_random_grid(x, y):
 
 
 #return a new grid in function of the current situation
-def behaviour(grid):
+def get_next_state(grid : list[list[int]]) -> list[list[int]]:
     x = len(grid)
     y = len(grid[0])
     new_grid = make_empty_grid(x, y)
-    for r in range(x):
-        for c in range(y):
-            cell = grid[r][c]
-            neighbours = count_neighbours(grid, (r, c))
-            new_grid[r][c] = 1 if behaviour_cell(cell, neighbours) else 0
+    for rows in range(x):
+        for col in range(y):
+            cell = grid[rows][col]
+            neighbours = count_neighbours(grid, (rows, col))
+            new_grid[rows][col] = 1 if behaviour_cell(cell, neighbours) else 0
     return new_grid
