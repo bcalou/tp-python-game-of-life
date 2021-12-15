@@ -113,6 +113,7 @@ array: list[list[int]] = [
 
 def get_next_state(state: list[list[int]]) -> list[list[int]]:
     new_array = copy.deepcopy(array)
+    # Checks the eight neighbors of each tile
     for row in range(len(array)):
         for col in range(len(array[row])):
             neighborhood = []
@@ -133,6 +134,7 @@ def get_next_state(state: list[list[int]]) -> list[list[int]]:
                 if col < len(array[0]) - 1:
                     neighborhood.append(array[row + 1][col + 1])
 
+    # changes the state of the tile depending on the number of alive neighbors
             neighbor_count = sum(neighborhood)
 
             if array[row][col] == 0:
@@ -146,6 +148,7 @@ def get_next_state(state: list[list[int]]) -> list[list[int]]:
     return new_array
 
 
+# the screen size depends of the size of the inputed array
 screen: pygame.surface.Surface = pygame.display.set_mode(
     (len(array) * 10, len(array[0]) * 10))
 
