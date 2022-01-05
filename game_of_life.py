@@ -7,13 +7,6 @@ pygame.init()
 screen: pygame.surface.Surface = pygame.display.set_mode(SCREEN_SIZE)
 screen.fill((0, 0, 0))
 
-# def nextStepCell(matrice: list[list[int]], line: int, column: int) -> list[list[int]]:
-#     cell_count: int = 0
-#     for i in range(-1,2):
-#         for j in range(-1,2):
-             
-#     return matrice
-
 def newMatrice(matrice: list[list[int]]):
     for i in range(len(matrice)):
         for j in range(len(matrice[0])):
@@ -35,7 +28,7 @@ def nextStep(matrice: list[list[int]]) -> list[list[int]]:
             if i == 0:
               if matrice[i+1][j] == 1:
                   number_of_neighbours_cells += 1
-              if j == 1:
+              if j == 0:
                   if matrice[i][j+1] == 1:
                       number_of_neighbours_cells += 1
                   if matrice[i+1][j+1] == 1:
@@ -58,7 +51,7 @@ def nextStep(matrice: list[list[int]]) -> list[list[int]]:
             elif i == len(INITIAL_STATE)-1:
               if matrice[i-1][j] == 1:
                   number_of_neighbours_cells += 1
-              if j == 1:
+              if j == 0:
                   if matrice[i][j+1] == 1:
                       number_of_neighbours_cells += 1
                   if matrice[i-1][j+1] == 1:
@@ -81,7 +74,7 @@ def nextStep(matrice: list[list[int]]) -> list[list[int]]:
             elif j == 0:
               if matrice[i][j+1] == 1:
                   number_of_neighbours_cells += 1
-              if i == 1:
+              if i == 0:
                   if matrice[i+1][j] == 1:
                       number_of_neighbours_cells += 1
                   if matrice[i+1][j+1] == 1:
@@ -142,13 +135,13 @@ def nextStep(matrice: list[list[int]]) -> list[list[int]]:
               if matrice[i+1][j+1] == 1:
                   number_of_neighbours_cells += 1
                 
-            if number_of_neighbours_cells > 3 or number_of_neighbours_cells < 2:
-                editable_copy[i][j] = 0
-            elif number_of_neighbours_cells == 3:
+            if number_of_neighbours_cells == 3:
                 editable_copy[i][j] = 1
-            else:
+            elif number_of_neighbours_cells == 2:
                 editable_copy[i][j] = matrice[i][j]
-            print("Cell ", i, j," : ", number_of_neighbours_cells)
+            else:
+              editable_copy[i][j] = 0
+
     return editable_copy
 
 clock = pygame.time.Clock()
@@ -170,7 +163,6 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    print("Update !")
-    clock.tick(1)
+    clock.tick(60)
 
 pygame.quit()
