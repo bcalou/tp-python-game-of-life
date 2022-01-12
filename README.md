@@ -134,7 +134,7 @@ Cela correspond à la représentation de la figure suivante.
 
 Modifiez votre matrice et vérifiez que cela fonctionne bien en relançant votre programme.
 
-Comme écrire des matrices à la main n'est pas l'activité la plus stimulante pour l'esprit humain, voici un [générateur concocté pour l'occasion](https://codepen.io/bcalou/pen/PoKvLWw). Il est assez rudimentaire mais devrait faciliter vos tests. Laissez du "blanc" autour de vos structure pour qu'elles puissent évoluer.
+Comme écrire des matrices à la main n'est pas l'activité la plus stimulante pour l'esprit humain, voici un [générateur concocté pour l&#39;occasion](https://codepen.io/bcalou/pen/PoKvLWw). Il est assez rudimentaire mais devrait faciliter vos tests. Laissez du "blanc" autour de vos structure pour qu'elles puissent évoluer.
 
 _Note : pour simplifier, nous partirons du principes que toutes nos matrices ont autant de lignes que de colonnes._
 
