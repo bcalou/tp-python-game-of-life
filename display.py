@@ -57,16 +57,13 @@ CELL_SIZE = min(int(SCREEN_SIZE[0] / len(initial_state)),
 def update_screen(screen: Surface, current_state: list[list[int]]):
     screen.fill((255, 255, 255))
 
-    # Display state
     for y in range(len(current_state)):
         for x in range(len(current_state[y])):
-            # Living cells are drawn in black
             if current_state[y][x]:               
                 pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(
                                                 x * CELL_SIZE, y * CELL_SIZE,
                                                 CELL_SIZE, CELL_SIZE))
 
-        # Display grid 
             if DISPLAY_GRID and y == 0:
                 pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(
                                                 x * CELL_SIZE, 0,

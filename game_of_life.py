@@ -10,14 +10,12 @@ def count_neighbors(current_state: list[list[int]], x: int, y: int) -> int:
                 current_state[y+j][x+i] == 1])
 
 def get_next_state(current_state: list[list[int]]) -> list[list[int]]:
-    # Copy list
+
     next_state: list[list[int]] = deepcopy(current_state)
     for y in range(len(current_state)):
         for x in range(len(current_state[y])):
-            # For every cell, check neighbors count
             neighborCellsCount: int = count_neighbors(current_state, x, y)
 
-            # Apply rules
             if neighborCellsCount < 2 or neighborCellsCount > 3:
                 next_state[y][x] = 0
             elif neighborCellsCount == 3:
@@ -25,27 +23,14 @@ def get_next_state(current_state: list[list[int]]) -> list[list[int]]:
     return next_state
 
 
-# Init
 pygame.init()
 current_state: list[list[int]] = deepcopy(initial_state)
 screen: pygame.surface.Surface = pygame.display.set_mode(SCREEN_SIZE)
 clock = pygame.time.Clock()
 
-# Loop
 playing: bool = False
 done: bool = False
 while not done:
-    for event in pygame.event.get():
-        # Close button
-        if event.type == pygame.QUIT:
-            done = True
-        elif event.type == pygame.KEYDOWN:
-            # Escape = Quit
-            if event.key == pygame.K_ESCAPE:
-                done = True
-            # Start / Pause simulation
-            elif event.key == pygame.K_SPACE:
-                playing = not playing
     if playing:
         current_state = get_next_state(current_state)
     update_screen(screen, current_state)
