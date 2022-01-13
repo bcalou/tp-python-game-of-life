@@ -1,3 +1,5 @@
+# Ce CODE a été fait avec l'aide d'Ulysse Regnier pour m'expliquer !!
+
 # TP : Le jeu de la vie de Conway
 
 Le but de ce TP est de réaliser une implémentation du "jeu de la vie" imaginé par John Conway.
