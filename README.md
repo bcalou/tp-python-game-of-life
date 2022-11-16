@@ -161,7 +161,7 @@ Vous n'avez plus qu'à générer un nouveau rendu avec votre nouvel état !
 Testez votre programme avec différentes structures dont vous trouverez les modèles sur Internet.
 
 Vous pouvez à cette étape rendre votre TP grâce à une pull request vers le repository original.
-  
+
 ## Étape 4 : feu !
 
 Voici le plus petit "canon à planeur" connu. Toutes les itérations, les règles du jeu de la vie forment à partir de cette structure un planeur, c'est à dire une petite structure autonome qui se déplace. Utilisez et admirez.
