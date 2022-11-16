@@ -20,10 +20,22 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    print("Update !")
+    screen.fill((0, 0, 0))
+
+    # ============ Game logic here =================
+
+    for i in range(10):
+        pygame.draw.rect(screen, (255, 255, 255), (i*50, i*50, 100, 100))
+
+    # =============================================
+
+    pygame.display.flip()
+
+    # print("Update !")
     clock.tick(FRAME_RATE)
 
 pygame.quit()
+
 
 def get_next_state():
     pass
