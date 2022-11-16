@@ -1,0 +1,3 @@
+# Couleurs
+BACKGROUND_COLOR = (255, 255, 255)
+CELL_COLOR = (0, 0, 0)
