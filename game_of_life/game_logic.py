@@ -1,6 +1,7 @@
 """Ce fichier contient les fonctions qui gèrent la logique du jeu de la vie.
 """
 
+
 def get_next_state(grid: list[list[int]]) -> list[list[int]]:
     """Fonction qui calcule la génération suivante du jeu.
     """
@@ -11,6 +12,7 @@ def get_next_state(grid: list[list[int]]) -> list[list[int]]:
             new_grid[y][x] = is_alive(grid, x, y)
 
     return new_grid
+
 
 def is_alive(grid: list[list[int]], x: int, y: int) -> int:
     """Fonction qui vérifie si une cellule sera vivante ou non.
@@ -32,11 +34,11 @@ def is_alive(grid: list[list[int]], x: int, y: int) -> int:
 
     if grid[y][x] == 1:
         if neighbours < 2 or neighbours > 3:
-            return 0 # Décès par solitude ou surpopulation
+            return 0  # Décès par solitude ou surpopulation
 
-        return 1 # Survie
+        return 1  # Survie
 
     elif neighbours == 3:
-        return 1 # Naissance
+        return 1  # Naissance
 
-    return 0 # Reste morte
+    return 0  # Reste morte

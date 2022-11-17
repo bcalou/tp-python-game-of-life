@@ -1,6 +1,7 @@
 """This file contains the utils to read and write a GOL map in a file.
 """
 
+
 def read_map(filename: str) -> tuple[list[tuple[int, int]], tuple[int, int]]:
     """Returns the alive cells from a file.
     """
@@ -18,7 +19,12 @@ def read_map(filename: str) -> tuple[list[tuple[int, int]], tuple[int, int]]:
         return ([], (-1, -1))
     return alive_cells, (x + 1, y + 1)
 
-def write_map(filename: str, alive_cells: list[tuple[int, int]], size: tuple[int, int]) -> bool:
+
+def write_map(
+    filename: str,
+    alive_cells: list[tuple[int, int]],
+    size: tuple[int, int]
+) -> bool:
     """Write a map in a file.
     """
     try:
@@ -31,9 +37,10 @@ def write_map(filename: str, alive_cells: list[tuple[int, int]], size: tuple[int
                     else:
                         file.write("0")
                 file.write("\n")
-    except:
+    except FileNotFoundError:
         return False
     return True
+
 
 def grid_to_alives(grid: list[list[int]]) -> list[tuple[int, int]]:
     """Convert a grid to a list of alive cells.
@@ -45,10 +52,16 @@ def grid_to_alives(grid: list[list[int]]) -> list[tuple[int, int]]:
                 alive_cells.append((x, y))
     return alive_cells
 
-def alives_to_grid(alive_cells: list[tuple[int, int]], size: tuple[int, int]) -> list[list[int]]:
+
+def alives_to_grid(
+    alive_cells: list[tuple[int, int]],
+    size: tuple[int, int]
+) -> list[list[int]]:
     """Convert a list of alive cells to a grid.
     """
-    grid: list[list[int]] = [[0 for _ in range(size[0])] for _ in range(size[1])]
+    grid: list[list[int]]
+    grid = [[0 for _ in range(size[0])] for _ in range(size[1])]
+
     for cell in alive_cells:
         grid[cell[1]][cell[0]] = 1
     return grid

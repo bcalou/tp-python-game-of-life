@@ -7,6 +7,7 @@ import pygame
 
 from game_of_life import const
 
+
 class GameDisplayer:
     """Classe qui gère l'affichage du jeu.
     """
@@ -19,7 +20,10 @@ class GameDisplayer:
         self.closing = False
         self.running = True
 
-        self.screen = pygame.display.set_mode((self.size[0] * self.cell_size, self.size[1] * self.cell_size))
+        self.screen = pygame.display.set_mode((
+                self.size[0] * self.cell_size,
+                self.size[1] * self.cell_size
+        ))
         pygame.display.set_caption("Game of Life")
 
     def draw(self, grid: list[list[int]]):
@@ -30,7 +34,10 @@ class GameDisplayer:
         for y in range(len(grid)):
             for x in range(len(grid[0])):
                 if grid[y][x]:
-                    pygame.draw.rect(self.screen, const.CELL_COLOR, (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size))
+                    pygame.draw.rect(self.screen, const.CELL_COLOR, (
+                        x * self.cell_size, y * self.cell_size,
+                        self.cell_size, self.cell_size
+                    ))
 
         pygame.display.flip()
 
@@ -41,7 +48,7 @@ class GameDisplayer:
             # Fermer normalement
             if event.type == pygame.QUIT:
                 self.closing = True
-            
+
             elif event.type == pygame.KEYDOWN:
                 # Fermer avec echap
                 if event.key == pygame.K_ESCAPE:
@@ -61,7 +68,6 @@ class GameDisplayer:
         """
         self.update_state()
         return self.closing
-
 
     def quit(self):
         """Ferme la fenêtre pygame.

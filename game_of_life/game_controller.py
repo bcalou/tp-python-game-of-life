@@ -1,21 +1,30 @@
 """Cette classe est le controlleur principal du jeu.
 Elle gère les interactions générales entre les éléments du jeu.
 
-Je choisis le format alive_cells plutôt que grid, afin de faciliter l'écriture à la main
-de la grille de départ. Les outils pour passer d'un format à l'autre sont dans le fichier
-save_manager.py.
+Je choisis le format alive_cells plutôt que grid, afin de faciliter l'écriture
+à la main de la grille de départ. Les outils pour passer d'un format à l'autre
+sont dans le fichier save_manager.py.
 """
-
-from game_of_life.game_displayer import GameDisplayer
-import game_of_life.game_logic as logic 
+# Public libs
 from pygame.time import Clock
 
+# Local imports
+from game_of_life.game_displayer import GameDisplayer
 from game_of_life.save_manager import alives_to_grid
+import game_of_life.game_logic as logic
+
+
 class GameController:
     """Classe qui gère les interactions entre les éléments du jeu.
     """
 
-    def __init__(self, size: tuple[int, int], alive_cells: list[tuple[int, int]] = [], cell_size: int = 10, speed: int = 2):
+    def __init__(
+        self,
+        size: tuple[int, int],
+        alive_cells: list[tuple[int, int]] = [],
+        cell_size: int = 10,
+        speed: int = 2
+    ):
         """Initialise le controlleur du jeu.
         """
         # Stockage des valeurs
