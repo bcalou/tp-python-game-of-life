@@ -5,7 +5,6 @@ Elle gère aussi toutes les interactions avec le joueur.
 
 import pygame
 import datetime as dt
-import os
 
 from game_of_life import const
 
@@ -67,7 +66,11 @@ class GameDisplayer:
 
                 # Sauvegarder avec s
                 elif event.key == pygame.K_s:
-                    self.parent.save_grid(f"Save {dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+                    self.parent.save_grid(
+                        "Save " +\
+                        dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")+\
+                        ".gol"
+                    )
 
                 # Accélérer avec ↑
                 elif event.key == pygame.K_UP:
@@ -76,6 +79,12 @@ class GameDisplayer:
                 # Ralentir avec ↓
                 elif event.key == pygame.K_DOWN:
                     self.parent.lower_speed()
+
+                # Charger les templates avec FX
+                elif event.key in const.TEMPLATE_KEYS:
+                    self.parent.load_template(
+                        const.TEMPLATE_KEYS.index(event.key)+1
+                    )
             
             # Détection du clic
             elif event.type == pygame.MOUSEBUTTONDOWN:

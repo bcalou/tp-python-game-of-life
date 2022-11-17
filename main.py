@@ -6,27 +6,43 @@ Pour utiliser un fichier, il faut le placer dans le dossier saves et passer son
 nom en argument de la ligne de commande. La ligne de commande est utilisable de
 plusieurs manières :
 
-    - python main.py                        # Lance le jeu avec une grille de 50x50 cases vides.
-    - python main.py 100 100                # Lance le jeu avec une grille de 100x100 cases vides.
-    - python main.py nom_de_sauvegarde      # Lance le jeu avec une grille enregistrée.
+    - python main.py
+        # Lance le jeu avec une grille de 50x50 cases vides.
+    - python main.py 100 100
+        # Lance le jeu avec une grille de 100x100 cases vides.
+    - python main.py nom_de_sauvegarde 
+        # Lance le jeu avec une grille enregistrée.
 
+Il est possible d'enregistrer jusqu'à 12 templates intégrables dans le jeu.
+Pour cela, il faut mettre un fichier de sauvegarde de petite taille dans le
+dossier templates. Le nom du fichier doit être de la forme "X.gol" avec X un
+nombre entre 1 et 12.
+/!\\ Attention, si le template est plus grand que la grille de jeu, il ne sera
+pas intégré. /!\\
 
 Sauvegardes fournies :
 
-    - example                               # Petit spinner sur une grille de 5x5 cases.
-    - canon                                 # Canon à glider vers le bas droite.
-    - canon_inverse                         # Canon à glider vers le haut droite.
+    - example
+        # Petit spinner sur une grille de 5x5 cases.
+    - canon
+        # Canon à glider vers le bas droite.
+    - canon_inverse
+        # Canon à glider vers le haut droite.
 
+Templates fournis :
+
+    - F1    # Glider
 
 Commandes :
     
-    - Echap                                 # Ferme le jeu.
-    - Espace                                # Met en pause le jeu.
-    - Clic gauche                           # Active ou désactive une cellule.
-    - S                                     # Sauvegarde la grille dans un fichier.
-    - R                                     # Remet la grille à zéro.
-    - ↑                                     # Augmente la vitesse du jeu. (2 fps)
-    - ↓                                     # Diminue la vitesse du jeu. (2 fps)
+    - Echap         # Ferme le jeu.
+    - Espace        # Met en pause le jeu.
+    - Clic gauche   # Active ou désactive une cellule.
+    - S             # Sauvegarde la grille dans un nouveau fichier.
+    - R             # Remet la grille à zéro.
+    - ↑             # Augmente la vitesse du jeu. (2 fps)
+    - ↓             # Diminue la vitesse du jeu. (2 fps)
+    - FX            # Charge le template X au prochain clic. (X entre 1 et 12)
 
 
 Auteur : Lucas LE DUDAL

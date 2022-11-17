@@ -12,7 +12,7 @@ from pygame.time import Clock
 from game_of_life.game_displayer import GameDisplayer
 from game_of_life.save_manager import alives_to_grid
 import game_of_life.game_logic as logic
-from game_of_life.save_manager import write_map, grid_to_alives
+from game_of_life.save_manager import read_map, write_map, grid_to_alives
 
 
 class GameController:
@@ -36,6 +36,7 @@ class GameController:
         # Paramètres par défaut
         self.looping: bool = False
         self.paused: bool = True
+        self.template: list[list[int]] = []
 
         # Génération de la grille
         self.grid: list[list[int]] = alives_to_grid(alive_cells, size)
@@ -69,7 +70,10 @@ class GameController:
     def toggle_cell(self, x: int, y: int):
         """Modifie la valeur d'une case de la grille.
         """
-        self.grid[y][x] = 1 - self.grid[y][x]
+        if self.template:
+            self.place_template(x, y)
+        else:
+            self.grid[y][x] = 1 - self.grid[y][x]
 
     def reset_grid(self):
         """Change la grille du jeu.
@@ -102,4 +106,20 @@ class GameController:
         """Sauvegarde la grille du jeu.
         """
         write_map(name, grid_to_alives(self.grid), self.size)
+    
+    def load_template(self, id: int):
+        """Permet d'afficher un template
+        """
         
+        template: tuple[list[tuple[int, int]], tuple[int, int]]
+        template = read_map(f"templates/{id}")
+        self.template = alives_to_grid(template[0], template[1])
+
+    def place_template(self, place_x: int, place_y: int):
+        """Permet de placer un template
+        """
+        for y in range(len(self.template)):
+            for x in range(len(self.template[0])):
+                self.grid[place_y + y][place_x + x] = self.template[y][x]
+
+        self.template = []
