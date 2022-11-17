@@ -1,5 +1,9 @@
 """Cette classe est le controlleur principal du jeu.
 Elle gère les interactions générales entre les éléments du jeu.
+
+Je choisis le format alive_cells plutôt que grid, afin de faciliter l'écriture à la main
+de la grille de départ. Les outils pour passer d'un format à l'autre sont dans le fichier
+save_manager.py.
 """
 
 from game_of_life.game_displayer import GameDisplayer
