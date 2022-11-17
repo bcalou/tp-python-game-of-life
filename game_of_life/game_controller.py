@@ -35,7 +35,7 @@ class GameController:
 
         # Paramètres par défaut
         self.looping: bool = False
-        self.paused: bool = False
+        self.paused: bool = True
 
         # Génération de la grille
         self.grid: list[list[int]] = alives_to_grid(alive_cells, size)
