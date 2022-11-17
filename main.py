@@ -25,6 +25,9 @@ Commandes :
     - Clic gauche                           # Active ou désactive une cellule.
     - S                                     # Sauvegarde la grille dans un fichier.
     - R                                     # Remet la grille à zéro.
+    - ↑                                     # Augmente la vitesse du jeu. (2 fps)
+    - ↓                                     # Diminue la vitesse du jeu. (2 fps)
+
 
 Auteur : Lucas LE DUDAL
 """

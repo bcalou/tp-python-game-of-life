@@ -76,10 +76,17 @@ class GameController:
         """
         self.grid = [[0 for _ in range(self.size[0])] for _ in range(self.size[1])]
 
-    def set_speed(self, speed: int):
-        """Change la vitesse du jeu.
+    def lower_speed(self):
+        """Baisse la vitesse du jeu.
         """
-        self.speed = speed
+        if self.speed > 2:
+            self.speed -= 2
+
+    def raise_speed(self):
+        """Augmente la vitesse du jeu.
+        """
+        if self.speed < 60:
+            self.speed += 2
 
     def toggle_paused(self):
         """Change l'état de pause du jeu.
