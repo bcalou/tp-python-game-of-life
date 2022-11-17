@@ -68,25 +68,24 @@ class GameDisplayer:
                 elif event.key == pygame.K_s:
                     self.parent.save_grid(
                         "Save " +\
-                        dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S")+\
-                        ".gol"
+                        dt.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
                     )
 
                 # Template à l'endroit avec ↑
                 elif event.key == pygame.K_UP:
-                    self.parent.set_template_rotation(0)
+                    self.parent.rotate_template(0)
 
                 # Template à l'envers avec ↓
                 elif event.key == pygame.K_DOWN:
-                    self.parent.set_template_rotation(2)
+                    self.parent.rotate_template(2)
 
                 # Template à gauche avec ←
                 elif event.key == pygame.K_LEFT:
-                    self.parent.set_template_rotation(1)
+                    self.parent.rotate_template(1)
 
                 # Template à droite avec →
                 elif event.key == pygame.K_RIGHT:
-                    self.parent.set_template_rotation(3)
+                    self.parent.rotate_template(3)
                 
 
                 # Charger les templates avec FX

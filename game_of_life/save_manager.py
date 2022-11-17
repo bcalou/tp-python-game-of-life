@@ -25,23 +25,19 @@ def write_map(
     name: str,
     alive_cells: list[tuple[int, int]],
     size: tuple[int, int]
-) -> bool:
+):
     """Write a map in a file.
     """
-    try:
-        # Write the file
-        path: str = f"saves/{name}.gol"
-        with open(path, "w") as file:
-            for y in range(size[1]):
-                for x in range(size[0]):
-                    if (x, y) in alive_cells:
-                        file.write("1")
-                    else:
-                        file.write("0")
-                file.write("\n")
-    except FileNotFoundError:
-        return False
-    return True
+    # Write the file
+    path: str = f"saves/{name}.gol"
+    with open(path, "w") as file:
+        for y in range(size[1]):
+            for x in range(size[0]):
+                if (x, y) in alive_cells:
+                    file.write("1")
+                else:
+                    file.write("0")
+            file.write("\n")
 
 
 def grid_to_alives(grid: list[list[int]]) -> list[tuple[int, int]]:
