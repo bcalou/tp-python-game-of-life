@@ -1,1 +1,4 @@
 __pycache__
+
+# Pour éviter de vous balancer des saves inutiles
+saves

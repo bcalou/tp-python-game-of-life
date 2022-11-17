@@ -37,13 +37,13 @@ Commandes :
     
     - Echap         # Ferme le jeu.
     - Espace        # Met en pause le jeu.
-    - Clic gauche   # Active ou désactive une cellule.
+    - Clic gauche   # Change l'état d'une cellule ou pose le template chargé.
     - S             # Sauvegarde la grille dans un nouveau fichier.
     - R             # Remet la grille à zéro.
     - Molette haut  # Augmente la vitesse du jeu. (2 fps)
     - Molette bas   # Diminue la vitesse du jeu. (2 fps)
     - FX            # Charge le template X au prochain clic. (X entre 1 et 12)
-
+    - ↑ ↓ ← →       # Tourner un template chargé.
 
 Auteur : Lucas LE DUDAL
 """
