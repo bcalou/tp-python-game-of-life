@@ -41,11 +41,6 @@ class GameController:
         # Création du timer
         self.clock = Clock()
 
-    def set_grid(self, grid: list[list[int]]):
-        """Change la grille du jeu.
-        """
-        self.grid = grid
-
     def run(self):
         """Fonction principale du jeu.
         """
@@ -54,6 +49,13 @@ class GameController:
             # Vérification de la fermeture de la fenêtre
             if self.displayer.is_closing():
                 break
+
+            # Editer au clic
+            clic = self.displayer.get_clicked()
+            if clic != (-1, -1):
+                # Toogle de la case cliquée
+                self.grid[clic[1]][clic[0]] = 1 - self.grid[clic[1]][clic[0]]
+
             # Gestion de la pause (espace)
             if self.displayer.is_running():
                 # Calcul de la nouvelle grille

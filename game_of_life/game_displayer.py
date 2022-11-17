@@ -15,10 +15,11 @@ class GameDisplayer:
     def __init__(self, size: tuple[int, int], cell_size: int):
         """Initialise le système d'affichage du jeu.
         """
-        self.size = size
-        self.cell_size = cell_size
-        self.closing = False
-        self.running = True
+        self.size: tuple[int, int] = size
+        self.cell_size: int = cell_size
+        self.closing: bool = False
+        self.running: bool = False
+        self.clicked: tuple[int, int] = (-1, -1)
 
         self.screen = pygame.display.set_mode((
                 self.size[0] * self.cell_size,
@@ -56,6 +57,14 @@ class GameDisplayer:
                 # Mettre en pause avec espace
                 elif event.key == pygame.K_SPACE:
                     self.running = not self.running
+            
+            # Détection du clic
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.clicked = (
+                        event.pos[0] // self.cell_size,
+                        event.pos[1] // self.cell_size
+                    )
 
     def is_running(self) -> bool:
         """Vérifie si le jeu est en cours.
@@ -68,6 +77,15 @@ class GameDisplayer:
         """
         self.update_state()
         return self.closing
+
+    def get_clicked(self) -> tuple[int, int]:
+        """Vérifie si le joueur a cliqué sur la grille.
+        """
+        self.update_state()
+        click = self.clicked
+        self.clicked = (-1, -1)
+        return click
+        
 
     def quit(self):
         """Ferme la fenêtre pygame.
