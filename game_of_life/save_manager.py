@@ -2,7 +2,7 @@
 """
 
 
-def read_map(filename: str) -> tuple[list[tuple[int, int]], tuple[int, int]]:
+def read_map(name: str) -> tuple[list[tuple[int, int]], tuple[int, int]]:
     """Returns the alive cells from a file.
     """
     alive_cells: list[tuple[int, int]] = []
@@ -10,7 +10,8 @@ def read_map(filename: str) -> tuple[list[tuple[int, int]], tuple[int, int]]:
     y: int = 0
     try:
         # Read the file
-        with open(filename, "r") as file:
+        path: str = f"saves/{name}.gol"
+        with open(path, "r") as file:
             for y, line in enumerate(file):
                 for x, cell in enumerate(line):
                     if cell == "1":
@@ -21,7 +22,7 @@ def read_map(filename: str) -> tuple[list[tuple[int, int]], tuple[int, int]]:
 
 
 def write_map(
-    filename: str,
+    name: str,
     alive_cells: list[tuple[int, int]],
     size: tuple[int, int]
 ) -> bool:
@@ -29,7 +30,8 @@ def write_map(
     """
     try:
         # Write the file
-        with open(filename, "w") as file:
+        path: str = f"saves/{name}.gol"
+        with open(path, "w") as file:
             for y in range(size[1]):
                 for x in range(size[0]):
                     if (x, y) in alive_cells:

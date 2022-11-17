@@ -12,6 +12,7 @@ from pygame.time import Clock
 from game_of_life.game_displayer import GameDisplayer
 from game_of_life.save_manager import alives_to_grid
 import game_of_life.game_logic as logic
+from game_of_life.save_manager import write_map, grid_to_alives
 
 
 class GameController:
@@ -32,11 +33,15 @@ class GameController:
         self.cell_size: int = cell_size
         self.speed: int = speed
 
+        # Paramètres par défaut
+        self.looping: bool = False
+        self.paused: bool = False
+
         # Génération de la grille
         self.grid: list[list[int]] = alives_to_grid(alive_cells, size)
 
         # Création de l'affichage
-        self.displayer = GameDisplayer(self.size, self.cell_size)
+        self.displayer = GameDisplayer(self, self.size, self.cell_size)
 
         # Création du timer
         self.clock = Clock()
@@ -44,21 +49,15 @@ class GameController:
     def run(self):
         """Fonction principale du jeu.
         """
-        while True:
+        self.looping = True
+        while self.looping:
             self.clock.tick(self.speed)
-            # Vérification de la fermeture de la fenêtre
-            if self.displayer.is_closing():
-                break
-
-            # Editer au clic
-            clic = self.displayer.get_clicked()
-            if clic != (-1, -1):
-                # Toogle de la case cliquée
-                self.grid[clic[1]][clic[0]] = 1 - self.grid[clic[1]][clic[0]]
+            
+            # Gestion des évènements
+            self.displayer.handle_events()
 
             # Gestion de la pause (espace)
-            if self.displayer.is_running():
-                # Calcul de la nouvelle grille
+            if not self.paused:
                 self.grid = logic.get_next_state(self.grid)
 
             # Affichage
@@ -66,3 +65,34 @@ class GameController:
 
         # Fermeture de la fenêtre
         self.displayer.quit()
+
+    def toggle_cell(self, x: int, y: int):
+        """Modifie la valeur d'une case de la grille.
+        """
+        self.grid[y][x] = 1 - self.grid[y][x]
+
+    def reset_grid(self):
+        """Change la grille du jeu.
+        """
+        self.grid = [[0 for _ in range(self.size[0])] for _ in range(self.size[1])]
+
+    def set_speed(self, speed: int):
+        """Change la vitesse du jeu.
+        """
+        self.speed = speed
+
+    def toggle_paused(self):
+        """Change l'état de pause du jeu.
+        """
+        self.paused = not self.paused
+
+    def quit(self):
+        """Ferme le jeu.
+        """
+        self.looping = False
+
+    def save_grid(self, name: str):
+        """Sauvegarde la grille du jeu.
+        """
+        write_map(name, grid_to_alives(self.grid), self.size)
+        

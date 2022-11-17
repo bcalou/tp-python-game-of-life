@@ -1,34 +1,30 @@
 #!/bin/python3
 """ Voici une implémentation du jeu de la vie de Conway.
-Le jeu de la vie est un automate cellulaire imaginé par John Horton Conway.
-
 La logique du jeu se trouve dans le dossier game_of_life.
 
 Pour utiliser un fichier, il faut le placer dans le dossier saves et passer son
 nom en argument de la ligne de commande. La ligne de commande est utilisable de
 plusieurs manières :
 
-    - python main.py
-        Lance le jeu avec une grille de 50x50 cases vides.
-
-    - python main.py 100 100
-        Lance le jeu avec une grille de 100x100 cases vides.
-
-    - python main.py nom_de_sauvegarde
-        Lance le jeu avec une grille enregistrée
+    - python main.py                        # Lance le jeu avec une grille de 50x50 cases vides.
+    - python main.py 100 100                # Lance le jeu avec une grille de 100x100 cases vides.
+    - python main.py nom_de_sauvegarde      # Lance le jeu avec une grille enregistrée.
 
 
 Sauvegardes fournies :
 
-    - example
-        Petit spinner sur une grille de 5x5 cases.
+    - example                               # Petit spinner sur une grille de 5x5 cases.
+    - canon                                 # Canon à glider vers le bas droite.
+    - canon_inverse                         # Canon à glider vers le haut droite.
 
-    - canon
-        Canon à glider vers le bas droite.
 
-    - canon_inverse
-        Canon à glider vers le haut droite.
-
+Commandes :
+    
+    - Echap                                 # Ferme le jeu.
+    - Espace                                # Met en pause le jeu.
+    - Clic gauche                           # Active ou désactive une cellule.
+    - S                                     # Sauvegarde la grille dans un fichier.
+    - R                                     # Remet la grille à zéro.
 
 Auteur : Lucas LE DUDAL
 """
@@ -50,10 +46,9 @@ def main():
     # Récupération des arguments de ligne de commande
     if len(sys.argv) == 2:
         # Lecture du fichier de sauvegarde (le type de retour est looooooooong)
-        nom_fichier = f"saves/{sys.argv[1]}.gol"
 
         map_data: tuple[list[tuple[int, int]], tuple[int, int]]
-        map_data = saver.read_map(nom_fichier)
+        map_data = saver.read_map(sys.argv[1])
 
         # Set des données
         alive_cells = map_data[0]
