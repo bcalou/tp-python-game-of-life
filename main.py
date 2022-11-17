@@ -10,7 +10,7 @@ plusieurs manières :
         # Lance le jeu avec une grille de 50x50 cases vides.
     - python main.py 100 100
         # Lance le jeu avec une grille de 100x100 cases vides.
-    - python main.py nom_de_sauvegarde 
+    - python main.py nom_de_sauvegarde
         # Lance le jeu avec une grille enregistrée.
 
 Il est possible d'enregistrer jusqu'à 12 templates intégrables dans le jeu.
@@ -34,7 +34,7 @@ Templates fournis :
     - F1    # Glider
 
 Commandes :
-    
+
     - Echap         # Ferme le jeu.
     - Espace        # Met en pause le jeu.
     - Clic gauche   # Change l'état d'une cellule ou pose le template chargé.

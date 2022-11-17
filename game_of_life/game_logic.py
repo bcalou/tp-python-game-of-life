@@ -21,10 +21,7 @@ def is_alive(grid: list[list[int]], x: int, y: int) -> int:
 
     for i in range(-1, 2):
         for j in range(-1, 2):
-            if i == 0 and j == 0:
-                continue
-
-            if y + i < 0 or y + i >= len(grid):
+            if (i == 0 and j == 0) or y + i < 0 or y + i >= len(grid) :
                 continue
 
             if x + j < 0 or x + j >= len(grid[0]):

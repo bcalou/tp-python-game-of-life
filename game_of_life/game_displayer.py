@@ -52,64 +52,76 @@ class GameDisplayer:
                 self.parent.quit()
 
             elif event.type == pygame.KEYDOWN:
-                # Fermer avec echap
-                if event.key == pygame.K_ESCAPE:
-                    self.parent.quit()
-
-                # Mettre en pause avec espace
-                elif event.key == pygame.K_SPACE:
-                    self.parent.toggle_paused()
-
-                # Remettre à zéro avec r
-                elif event.key == pygame.K_r:
-                    self.parent.reset_grid()
-
-                # Sauvegarder avec s
-                elif event.key == pygame.K_s:
-                    self.parent.save_grid(
-                        "Save " +\
-                        dt.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-                    )
-
-                # Template à l'endroit avec ↑
-                elif event.key == pygame.K_UP:
-                    self.parent.rotate_template(0)
-
-                # Template à l'envers avec ↓
-                elif event.key == pygame.K_DOWN:
-                    self.parent.rotate_template(2)
-
-                # Template à gauche avec ←
-                elif event.key == pygame.K_LEFT:
-                    self.parent.rotate_template(1)
-
-                # Template à droite avec →
-                elif event.key == pygame.K_RIGHT:
-                    self.parent.rotate_template(3)
-                
-
-                # Charger les templates avec FX
-                elif event.key in const.TEMPLATE_KEYS:
-                    self.parent.load_template(
-                        const.TEMPLATE_KEYS.index(event.key)+1
-                    )
+                self.handle_keydown(event)
             
-            # Détection du clic
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    self.parent.toggle_cell(
-                        event.pos[0] // self.cell_size,
-                        event.pos[1] // self.cell_size
-                    )
-
-            # Détection du scroll
-            elif event.type == pygame.MOUSEWHEEL:
-                if event.y > 0:
-                    self.parent.raise_speed()
-                elif event.y < 0:
-                    self.parent.lower_speed()
+            # Sinon c'est un event souris
+            else:
+                self.handle_mouse_event(event)
+            
 
     def quit(self):
         """Ferme la fenêtre pygame.
         """
         pygame.quit()
+
+    def handle_keydown(self, event):
+        """Gère tous les évènements clavier.
+        """
+        # Quitter [Echap]
+        if event.key == pygame.K_ESCAPE:
+            self.parent.quit()
+
+        # Pause [Espace]
+        elif event.key == pygame.K_SPACE:
+            self.parent.toggle_paused()
+
+        # Reset [R]
+        elif event.key == pygame.K_r:
+            self.parent._grid()
+
+        # Sauvegarder [S]
+        elif event.key == pygame.K_s:
+            self.parent.save_grid()
+
+        # Sinon, cela concerne les templates
+        else:
+            self.handle_template_keydown(event)
+        
+    def handle_template_keydown(self, event):
+        """Gère les évènements clavier liés aux templates.
+        """
+        # Template à l'endroit avec ↑
+        if event.key == pygame.K_UP:
+            self.parent.rotate_template(0)
+
+        # Template à gauche avec ←
+        elif event.key == pygame.K_LEFT:
+            self.parent.rotate_template(1)
+
+        # Template à l'envers avec ↓
+        elif event.key == pygame.K_DOWN:
+            self.parent.rotate_template(2)
+
+        # Template à droite avec →
+        elif event.key == pygame.K_RIGHT:
+            self.parent.rotate_template(3)
+        
+        # Charger les templates avec FX
+        elif event.key in const.TEMPLATE_KEYS:
+            self.parent.load_template(const.TEMPLATE_KEYS.index(event.key)+1)
+
+    def handle_mouse_event(self, event):
+        """Gère tous les évènements souris.
+        """
+        # Clic gauche pour placer
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                self.parent.toggle_cell(event.pos[0] // self.cell_size,
+                    event.pos[1] // self.cell_size)
+
+        # Scroll pour accélérer ou ralentir
+        elif event.type == pygame.MOUSEWHEEL:
+            if event.y > 0:
+                self.parent.raise_speed()
+            elif event.y < 0:
+                self.parent.lower_speed()
