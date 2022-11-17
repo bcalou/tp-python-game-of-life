@@ -18,7 +18,7 @@ class GameDisplayer:
         self.size: tuple[int, int] = size
         self.cell_size: int = cell_size
         self.closing: bool = False
-        self.running: bool = False
+        self.running: bool = True
         self.clicked: tuple[int, int] = (-1, -1)
 
         self.screen = pygame.display.set_mode((
