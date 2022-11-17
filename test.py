@@ -1,4 +1,4 @@
-from game_of_life.game import get_next_state
+from game_of_life.game_logic import get_next_state
 
 tests = [
   {
