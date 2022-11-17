@@ -72,13 +72,22 @@ class GameDisplayer:
                         ".gol"
                     )
 
-                # Accélérer avec ↑
+                # Template à l'endroit avec ↑
                 elif event.key == pygame.K_UP:
-                    self.parent.raise_speed()
+                    self.parent.set_template_rotation(0)
 
-                # Ralentir avec ↓
+                # Template à l'envers avec ↓
                 elif event.key == pygame.K_DOWN:
-                    self.parent.lower_speed()
+                    self.parent.set_template_rotation(2)
+
+                # Template à gauche avec ←
+                elif event.key == pygame.K_LEFT:
+                    self.parent.set_template_rotation(1)
+
+                # Template à droite avec →
+                elif event.key == pygame.K_RIGHT:
+                    self.parent.set_template_rotation(3)
+                
 
                 # Charger les templates avec FX
                 elif event.key in const.TEMPLATE_KEYS:
@@ -93,6 +102,13 @@ class GameDisplayer:
                         event.pos[0] // self.cell_size,
                         event.pos[1] // self.cell_size
                     )
+
+            # Détection du scroll
+            elif event.type == pygame.MOUSEWHEEL:
+                if event.y > 0:
+                    self.parent.raise_speed()
+                elif event.y < 0:
+                    self.parent.lower_speed()
 
     def quit(self):
         """Ferme la fenêtre pygame.

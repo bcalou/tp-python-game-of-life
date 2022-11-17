@@ -37,6 +37,7 @@ class GameController:
         self.looping: bool = False
         self.paused: bool = True
         self.template: list[list[int]] = []
+        self.template_rotation: int = 0
 
         # Génération de la grille
         self.grid: list[list[int]] = alives_to_grid(alive_cells, size)
@@ -118,8 +119,16 @@ class GameController:
     def place_template(self, place_x: int, place_y: int):
         """Permet de placer un template
         """
+        # On tourne le template
+        self.template = logic.rotate_grid(self.template, self.template_rotation)
+        
         for y in range(len(self.template)):
             for x in range(len(self.template[0])):
                 self.grid[place_y + y][place_x + x] = self.template[y][x]
 
         self.template = []
+
+    def rotate_template(self, rotation: int):
+        """Permet de tourner un template
+        """
+        self.template_rotation = rotation
