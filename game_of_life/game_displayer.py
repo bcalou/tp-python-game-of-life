@@ -17,7 +17,7 @@ class GameDisplayer:
         self.size = size
         self.cell_size = cell_size
         self.closing = False
-        self.running = False
+        self.running = True
 
         self.screen = pygame.display.set_mode((self.size[0] * self.cell_size, self.size[1] * self.cell_size))
         pygame.display.set_caption("Game of Life")
@@ -38,12 +38,15 @@ class GameDisplayer:
         """Met à jour les infos de statut du jeu.
         """
         for event in pygame.event.get():
+            # Fermer normalement
             if event.type == pygame.QUIT:
                 self.closing = True
             
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN:
+                # Fermer avec echap
                 if event.key == pygame.K_ESCAPE:
                     self.closing = True
+                # Mettre en pause avec espace
                 elif event.key == pygame.K_SPACE:
                     self.running = not self.running
 
