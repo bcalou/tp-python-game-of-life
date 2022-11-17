@@ -3,7 +3,7 @@
 
 import os
 
-def read_map(filename):
+def read_map(filename: str) -> list[list[int]]:
     """Read a map from a file.
     """
     # Check if the file exists
@@ -25,3 +25,17 @@ def read_map(filename):
             line = file.readline()
 
     return map
+
+def write_map(filename: str, map: list[list[int]]) -> bool:
+    """Write a map in a file.
+    """
+    try:
+        # Write the file
+        with open(filename, "w") as file:
+            for line in map:
+                for cell in line:
+                    file.write(str(cell))
+                file.write("\n")
+    except:
+        return False
+    return True
