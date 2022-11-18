@@ -123,6 +123,11 @@ class GameController:
         """
         # On tourne le template
         self.template = logic.rotate_grid(self.template, self.template_rota)
+
+        if place_x + len(self.template[0]) > self.size[0]:
+            place_x = self.size[0] - len(self.template[0])
+        if place_y + len(self.template) > self.size[1]:
+            place_y = self.size[1] - len(self.template)
         
         for y in range(len(self.template)):
             for x in range(len(self.template[0])):

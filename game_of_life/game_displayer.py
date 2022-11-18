@@ -77,7 +77,7 @@ class GameDisplayer:
 
         # Reset [R]
         elif event.key == pygame.K_r:
-            self.parent._grid()
+            self.parent.reset_grid()
 
         # Sauvegarder [S]
         elif event.key == pygame.K_s:
