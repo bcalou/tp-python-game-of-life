@@ -1,19 +1,6 @@
 import copy
 
-from const import Coordinates, Matrix
-
-
-# Class game_state :
-# - max matrix length
-# - State matrix (getter setter
-# - update_state
-# private :
-# - Get neighbours
-# - get_number_of_alive_neighbours
-# get element
-# get position
-
-# TODO function to update a cell in the graphical process
+from const import Coordinates, Matrix, DEAD, ALIVE
 
 
 class GameState:
@@ -21,6 +8,8 @@ class GameState:
     def __init__(self, initial_state: Matrix):
         # The state of the game, it is a square matrix
         self._state: Matrix = initial_state
+        # The next state of the game
+        self._next_state: Matrix = copy.deepcopy(self._state)
         # Size of a line or a column of the matrix
         self._state_size: int = len(self._state)
 
@@ -28,39 +17,40 @@ class GameState:
         """Returns the actual state"""
         return self._state
 
+    def update_alive_cell_status(self, cell_position: Coordinates):
+        """Updates the status (alive/dead) of a cell that is alive, for the
+        next game state"""
+        # how much alive cells are around our cell
+        alive_neighbours: int = self._get_number_of_alive_neighbours(
+            cell_position, self._state)
+
+        # Check if the cell must die
+        if self._will_die(alive_neighbours):
+            # Destroy the cell in the next state
+            self._next_state[cell_position[0]][cell_position[1]] = DEAD
+
+    def update_dead_cell_status(self, cell_position: Coordinates):
+        """Updates the status (alive/dead) of a cell that is dead, for the
+        next game state"""
+        # how much alive cells are around our cell
+        alive_neighbours: int = self._get_number_of_alive_neighbours(
+            cell_position, self._state)
+
+        # Check if the cell will be alive
+        if self._will_be_alive(alive_neighbours):
+            # Create a cell in the next state
+            self._next_state[cell_position[0]][cell_position[1]] = ALIVE
+
     def update_state(self):
-        """Updates the matrix to the next state of the game"""
-        # Copy the state in our new state
-        next_state: Matrix = copy.deepcopy(self._state)
+        """Updates the state matrix with the next state of the game"""
+        self._state = copy.deepcopy(self._next_state)
 
-        # Checking each cell
-        for line_index in range(len(self._state)):
-            for column_index in range(len(self._state[line_index])):
-
-                cell_position: Coordinates = line_index, column_index
-                alive_neighbours: int = self._get_number_of_alive_neighbours(
-                    cell_position, self._state)
-
-                if self._state[line_index][column_index] == 1:
-                    # Check if the cell must die
-                    if self._must_die(alive_neighbours):
-                        # Destroy the cell in the next state
-                        next_state[line_index][column_index] = 0
-                else:
-                    # Check if a new cell must be alive
-                    if self._must_be_alive(alive_neighbours):
-                        # Create a cell in the next state
-                        next_state[line_index][column_index] = 1
-
-        # The next state becomes our current state
-        self._state = next_state
-
-    def _must_die(self, alive_neighbours: int) -> bool:
+    def _will_die(self, alive_neighbours: int) -> bool:
         """Returns true if the cell has not enough or too much neighbours,
         so it must die"""
         return alive_neighbours < 2 or alive_neighbours > 3
 
-    def _must_be_alive(self, alive_neighbours: int) -> bool:
+    def _will_be_alive(self, alive_neighbours: int) -> bool:
         """Returns true if the cell has exactly 3 neighbours, so it must
          be alive """
         return alive_neighbours == 3
