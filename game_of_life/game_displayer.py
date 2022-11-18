@@ -22,6 +22,7 @@ class GameDisplayer:
         self.running: bool = False
         self.clicked: tuple[int, int] = (-1, -1)
 
+        pygame.init()
         self.screen = pygame.display.set_mode((
                 self.size[0] * self.cell_size,
                 self.size[1] * self.cell_size
