@@ -53,11 +53,10 @@ class GameDisplayer:
 
             elif event.type == pygame.KEYDOWN:
                 self.handle_keydown(event)
-            
+
             # Sinon c'est un event souris
             else:
                 self.handle_mouse_event(event)
-            
 
     def quit(self):
         """Ferme la fenêtre pygame.
@@ -86,7 +85,7 @@ class GameDisplayer:
         # Sinon, cela concerne les templates
         else:
             self.handle_template_keydown(event)
-        
+
     def handle_template_keydown(self, event):
         """Gère les évènements clavier liés aux templates.
         """
@@ -105,7 +104,7 @@ class GameDisplayer:
         # Template à droite avec →
         elif event.key == pygame.K_RIGHT:
             self.parent.rotate_template(3)
-        
+
         # Charger les templates avec FX
         elif event.key in const.TEMPLATE_KEYS:
             self.parent.load_template(const.TEMPLATE_KEYS.index(event.key)+1)
@@ -117,7 +116,7 @@ class GameDisplayer:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.parent.toggle_cell(event.pos[0] // self.cell_size,
-                    event.pos[1] // self.cell_size)
+                                        event.pos[1] // self.cell_size)
 
         # Scroll pour accélérer ou ralentir
         elif event.type == pygame.MOUSEWHEEL:

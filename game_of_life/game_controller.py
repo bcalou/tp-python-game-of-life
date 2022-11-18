@@ -54,7 +54,7 @@ class GameController:
         self.looping = True
         while self.looping:
             self.clock.tick(self.speed)
-            
+
             # Gestion des évènements
             self.displayer.handle_events()
 
@@ -109,11 +109,11 @@ class GameController:
         """Sauvegarde la grille du jeu.
         """
         write_map(name, grid_to_alives(self.grid), self.size)
-    
+
     def load_template(self, id: int):
         """Permet d'afficher un template
         """
-        
+
         template: tuple[list[tuple[int, int]], tuple[int, int]]
         template = read_map(f"templates/{id}")
         self.template = alives_to_grid(template[0], template[1])
@@ -128,7 +128,7 @@ class GameController:
             place_x = self.size[0] - len(self.template[0])
         if place_y + len(self.template) > self.size[1]:
             place_y = self.size[1] - len(self.template)
-        
+
         for y in range(len(self.template)):
             for x in range(len(self.template[0])):
                 self.grid[place_y + y][place_x + x] = self.template[y][x]

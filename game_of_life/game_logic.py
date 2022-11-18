@@ -21,7 +21,7 @@ def is_alive(grid: list[list[int]], x: int, y: int) -> int:
 
     for i in range(-1, 2):
         for j in range(-1, 2):
-            if (i == 0 and j == 0) or y + i < 0 or y + i >= len(grid) :
+            if (i == 0 and j == 0) or y + i < 0 or y + i >= len(grid):
                 continue
 
             if x + j < 0 or x + j >= len(grid[0]):
@@ -40,12 +40,13 @@ def is_alive(grid: list[list[int]], x: int, y: int) -> int:
 
     return 0  # Reste morte
 
+
 def rotate_grid(grid: list[list[int]], rotations: int) -> list[list[int]]:
     """Tourne une grille dans le sens des aiguilles d'une montre du nombre de
     rotations spécifiées.
     """
     old_grid: list[list[int]]
-    old_grid = [l[:] for l in grid]
+    old_grid = [line[:] for line in grid]
 
     new_grid: list[list[int]]
     for _ in range(rotations):
@@ -53,6 +54,6 @@ def rotate_grid(grid: list[list[int]], rotations: int) -> list[list[int]]:
             [old_grid[y][x] for y in range(len(old_grid))]
             for x in range(len(old_grid[0])-1, -1, -1)
         ]
-        old_grid = [l[:] for l in new_grid]
+        old_grid = [line[:] for line in new_grid]
 
     return old_grid
