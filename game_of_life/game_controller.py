@@ -10,9 +10,9 @@ from pygame.time import Clock
 
 # Local imports
 from game_of_life.game_displayer import GameDisplayer
-from game_of_life.save_manager import alives_to_grid
-import game_of_life.game_logic as logic
-from game_of_life.save_manager import read_map, write_map, grid_to_alives
+from game_of_life.format_utils import FormatToolbox
+from game_of_life.game_logic import GameLogic
+from game_of_life.types import *
 
 
 class GameController:
@@ -29,7 +29,7 @@ class GameController:
         """Initialise le controlleur du jeu.
         """
         # Stockage des valeurs
-        self.size: tuple[int, int] = size
+        self.size: Size = size
         self.cell_size: int = cell_size
         self.speed: int = speed
 
@@ -39,14 +39,14 @@ class GameController:
         self.template: list[list[int]] = []
         self.template_rota: int = 0
 
-        # Génération de la grille
-        self.grid: list[list[int]] = alives_to_grid(alive_cells, size)
-
-        # Création de l'affichage
-        self.displayer = GameDisplayer(self, self.size, self.cell_size)
-
-        # Création du timer
+        # Sauvegarde des outils de fonctionnement
+        self.displayer: GameDisplayer = GameDisplayer(self, self.size, self.cell_size)
+        self.toolbox: FormatToolbox = FormatToolbox()
         self.clock = Clock()
+
+        # Génération de la grille
+        self.grid: Grid = self.toolbox.alives_to_grid(alive_cells, size)
+        self.game_logic: GameLogic = GameLogic(self.grid, self.size) # TODO: Il a besoin des deux?
 
     def run(self):
         """Fonction principale du jeu.
@@ -60,7 +60,7 @@ class GameController:
 
             # Gestion de la pause (espace)
             if not self.paused:
-                self.grid = logic.get_next_state(self.grid)
+                self.grid = self.game_logic.get_next_state()
 
             # Affichage
             self.displayer.draw(self.grid)
@@ -108,21 +108,25 @@ class GameController:
     def save_grid(self, name: str):
         """Sauvegarde la grille du jeu.
         """
-        write_map(name, grid_to_alives(self.grid), self.size)
+        self.toolbox.write_map(
+            name,
+            self.toolbox.grid_to_alives(self.grid),
+            self.size
+        )
 
     def load_template(self, id: int):
         """Permet d'afficher un template
         """
 
         template: tuple[list[tuple[int, int]], tuple[int, int]]
-        template = read_map(f"templates/{id}")
-        self.template = alives_to_grid(template[0], template[1])
+        template = self.toolbox.read_map(f"templates/{id}")
+        self.template = self.toolbox.alives_to_grid(template[0], template[1])
 
     def place_template(self, place_x: int, place_y: int):
         """Permet de placer un template
         """
         # On tourne le template
-        self.template = logic.rotate_grid(self.template, self.template_rota)
+        self.template = self.game_logic.rotate_grid(self.template, self.template_rota)
 
         if place_x + len(self.template[0]) > self.size[0]:
             place_x = self.size[0] - len(self.template[0])

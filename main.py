@@ -51,7 +51,7 @@ Auteur : Lucas LE DUDAL
 import sys
 
 from game_of_life.game_controller import GameController
-import game_of_life.save_manager as saver
+from game_of_life.format_utils import FormatToolbox
 
 
 def main():
@@ -61,13 +61,14 @@ def main():
     alive_cells: list[tuple[int, int]]
     size: tuple[int, int]
     cell_size: int
+    toolbox: FormatToolbox = FormatToolbox()
 
     # Récupération des arguments de ligne de commande
     if len(sys.argv) == 2:
         # Lecture du fichier de sauvegarde (le type de retour est looooooooong)
 
         map_data: tuple[list[tuple[int, int]], tuple[int, int]]
-        map_data = saver.read_map(sys.argv[1])
+        map_data = toolbox.read_map(sys.argv[1])
 
         # Set des données
         alive_cells = map_data[0]
@@ -84,7 +85,6 @@ def main():
         size = (50, 50)
 
     # Valeurs par défaut
-
     cell_size = min([1280 // size[0], 720 // size[1]])
     speed: int = 60  # fps
 

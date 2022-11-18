@@ -6,14 +6,16 @@ Elle gère aussi toutes les interactions avec le joueur.
 import pygame
 import datetime as dt
 
-from game_of_life import const
+import game_of_life.const as const
+from game_of_life.types import *
+from game_of_life.game_controller import GameController
 
 
 class GameDisplayer:
     """Classe qui gère l'affichage du jeu.
     """
 
-    def __init__(self, parent, size: tuple[int, int], cell_size: int):
+    def __init__(self, parent: "GameController", size: Size, cell_size: int):
         """Initialise le système d'affichage du jeu.
         """
         self.parent = parent
@@ -29,7 +31,7 @@ class GameDisplayer:
         ))
         pygame.display.set_caption("Game of Life")
 
-    def draw(self, grid: list[list[int]]):
+    def draw(self, grid: Grid):
         """Dessine la grille du jeu.
         """
         self.screen.fill(const.BACKGROUND_COLOR)
@@ -81,7 +83,8 @@ class GameDisplayer:
 
         # Sauvegarder [S]
         elif event.key == pygame.K_s:
-            self.parent.save_grid()
+            name = f"Save {dt.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+            self.parent.save_grid(name)
 
         # Sinon, cela concerne les templates
         else:
