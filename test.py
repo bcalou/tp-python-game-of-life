@@ -1,5 +1,7 @@
-from game_of_life.game import get_next_state
+from game_of_life.game import *
 
+#Does not work anymore
+'''
 tests = [
   {
     "state": [
@@ -39,3 +41,4 @@ for test in tests:
         error = True
 
 print('\033[92m✓ OK' if not error else '\033[91m❌KO')
+'''

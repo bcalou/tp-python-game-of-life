@@ -1,19 +1,5 @@
-#TO DO
-#Changer le nom des variables index_x et index_y (genre column/ligne)
-#Créer une class Game:
-'''
-def init(state)
-    self.state = state
 
-def update():
-    self.state = self.get_next_state()
-
-get_next_state():
-    self.state
-'''
-
-import pygame
-from game_of_life.game import get_next_state
+from game_of_life.game import Game
 
 '''Constants'''
 DISPLAY_SIZE_X: int = 600
@@ -23,19 +9,9 @@ FPS: int = 30
 DEATH_CELL_COLOR: tuple = (255,255,255)
 ALIVE_CELL_COLOR: tuple = (0,0,0)
 
-#GRID_SIZE_X = 3
-#GRID_SIZE_Y = 3
-#Vérifier que c'est égale à la taille de la matrice
-
-pygame.init()
 
 
 def main():
-    screen: pygame.surface.Surface = pygame.display.set_mode((DISPLAY_SIZE_X, DISPLAY_SIZE_Y))
-    
-    clock = pygame.time.Clock()
-
-    done: bool = False
 
     '''Matrix initialisation'''
     initial_state: list[list[int]] = [
@@ -90,42 +66,8 @@ def main():
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-    state = initial_state
-    
-
-    # While the game is not over
-    while not done:
-
-        # Listen for all events
-        for event in pygame.event.get():
-
-            # Quit the infinite loop when the user presses the close button
-            if event.type == pygame.QUIT:
-                done = True
-
-        #####
-        '''For each iteration'''
-        
-        screen.fill(DEATH_CELL_COLOR)
-
-        case_size_x = int(DISPLAY_SIZE_X / len(initial_state[0]))
-        case_size_y = int(DISPLAY_SIZE_Y / len(initial_state))
-
-        for index_y in range(len(state)):
-            for index_x in range(len(state[index_y])):
-                if state[index_y][index_x] == 1:
-                    pygame.draw.rect(screen, ALIVE_CELL_COLOR, (index_x * case_size_x, index_y * case_size_y, case_size_x, case_size_y)) #x, y, largeur, hauteur
-                else:
-                    pygame.draw.rect(screen, DEATH_CELL_COLOR, (index_x * case_size_x, index_y * case_size_y, case_size_x, case_size_y))
-
-        '''Called at the end of each update. Allows to apply modifications'''
-        pygame.display.flip()
-
-        state = get_next_state(state)
-        #####
-        clock.tick(FPS)
-
-    pygame.quit()
+    game: Game = Game(initial_state, DISPLAY_SIZE_X, DISPLAY_SIZE_Y, DEATH_CELL_COLOR, ALIVE_CELL_COLOR, FPS)
+    game.start()
 
 
 main()
