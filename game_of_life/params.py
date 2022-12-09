@@ -1,6 +1,6 @@
 Matrix = list[list[int]]
 
-WINDOW_SIZE: tuple = (1000, 700)
+WINDOW_SIZE: tuple = (700, 700)
 
 INITIAL_STATE: list[list[int]] = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
