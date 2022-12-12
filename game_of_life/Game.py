@@ -16,16 +16,16 @@ class Game:
         self._initial_state: Matrix = initial_state
         self._rows_quantity: int = len(self._initial_state)
         self._columns_quantity: int = len(self._initial_state[0])
-    
+
     def get_initial_state(self) -> Matrix:
         return self._initial_state
-    
+
     def get_rows_quantity(self) -> int:
         return self._rows_quantity
-    
+
     def get_columns_quantity(self) -> int:
         return self._columns_quantity
-    
+
     def get_next_state(self, current_state: Matrix) -> Matrix:
 
         """Creating matrix of the next generation's state"""
@@ -37,13 +37,13 @@ class Game:
         # Walking through the whole matrix and checking each cell's state in
         # the next generation one by one
         for row in range(self._rows_quantity):
-                for column in range(self._columns_quantity):
-                    self._next_state[row][column] = (
-                        self._will_the_cell_live(current_state, column, row)
-                    )
-        
+            for column in range(self._columns_quantity):
+                self._next_state[row][column] = (
+                    self._will_the_cell_live(current_state, column, row)
+                )
+
         return self._next_state
-    
+
     def _create_empty_matrix(self, rows_quantity: int, columns_quantity: int) -> Matrix:
 
         """Creating an empty matrix to be filled by the above method"""
@@ -54,9 +54,9 @@ class Game:
             self._empty_matrix.append([])
             for column in range(columns_quantity):
                 self._empty_matrix[row].append(0)
-        
+
         return self._empty_matrix
-    
+
     def _will_the_cell_live(self, current_state: Matrix, cell_X_coord: int, cell_Y_coord: int) -> bool:
 
         """
@@ -79,11 +79,11 @@ class Game:
                 ):
                     # If not, taking into account the surrounding cell
                     living_cells_around += current_state[surrounding_cell_Y_coord][surrounding_cell_X_coord]
-                
+
         # Excluding the cell to check because it has been taken into account by
         # the above loop
         living_cells_around -= current_state[cell_Y_coord][cell_X_coord]
-        
+
         # Applying the rules of the game
         if (
             (current_state_of_cell == 0 and living_cells_around == 3) or
