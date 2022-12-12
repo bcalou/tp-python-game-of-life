@@ -5,3 +5,6 @@ from game_of_life.Display import Display
 
 new_game = Game(INITIAL_STATE)
 display = Display(WINDOW_SIZE, new_game)
+
+display.init_pygame()
+display.display()
