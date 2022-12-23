@@ -1,6 +1,6 @@
 # Game of life
 
-Implementation of John Conway's Game of life in the context of the programming and algrotihms course at ENJMIN.
+Implementation of John Conway's Game of life in the context of the programming and algorithms course at ENJMIN.
 
 [Wikipedia article 🇬🇧](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
@@ -9,7 +9,7 @@ Implementation of John Conway's Game of life in the context of the programming a
 
 1. Edit the constants in the file *params.py* :
     - *WINDOW_SIZE* : the size of the display window, in pixels
-    - *INITIAL_STATE* : the initial matric of cells
+    - *INITIAL_STATE* : the initial matrix of cells the game will begin with. You can use this [matrix generator](https://codepen.io/bcalou/pen/PoKvLWw) to help you create one.
 2. Launch the file *game_of_life.py*
 
 ## Controls
