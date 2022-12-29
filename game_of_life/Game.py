@@ -1,11 +1,4 @@
-import sys
-
-PROJECT_PATH = r"D:\DOCUMENTS\Cours ENJMIN\2022-09_Algorithmique et programmation\tp-python-game-of-life\game_of_life"
-
-if PROJECT_PATH not in sys.path:
-    sys.path.append(PROJECT_PATH)
-
-from params import *
+from game_of_life.params import *
 
 
 class Game:

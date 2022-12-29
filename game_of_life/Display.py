@@ -1,7 +1,7 @@
 import pygame
 import copy
 from game_of_life.params import *
-from game_of_life.Game import Game
+from game_of_life.Game import *
 
 
 class Display:
