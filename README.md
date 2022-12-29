@@ -219,3 +219,18 @@ Voici le plus petit "canon à planeur" connu. Toutes les itérations, les règle
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 ```
+
+## Étape 5 : un peu de classe
+
+La dernière étape de ce TP consiste (sauf si cela est déjà fait), à transformer votre code en utilisant une ou plusieurs classes.
+
+Attention, il ne s'agit pas seulement d'encapsuler votre code dans un objet classe et de s'arrêter là. Beaucoup de choses sont à considérer :
+
+- présence d'un constructeur permettant d'initaliser des données
+- possibilité de maintenir un état interne pour limiter le nombre de paramètres passés d'une fonction à une autre
+- possibilité d'utiliser plusieurs classes (non obligatoire) pour séparer différents domaines logiques
+- etc...
+
+_Note : les tests ne passeront plus, ce n'est pas grave._
+
+Il serait ensuite possible de créer des classes dérivées pour gérer des variantes du jeu de la vie, mais cela sort du cadre de ce TP.
