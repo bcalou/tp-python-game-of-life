@@ -43,20 +43,26 @@ class WorldSolver():
 
     def solve_step(self):
         next_step_world: GriddWorld = GriddWorld(self.empty_matrix)
-        print("Begin solve step")
         for current_cell_pos_y in range(self.world.get_world_size_y()):
             for current_cell_pos_x in range(self.world.get_world_size_x()):
                 total: int = self.get_number_of_living_neighboring_cells(
                     current_cell_pos_x, current_cell_pos_y)
 
                 if total == 3:
+                    # Make a new living cell
                     next_step_world.set_cell_value_at(
                         1, current_cell_pos_x, current_cell_pos_y)
-
-                if total > 3 or total < 2:
+                elif total == 2:
+                    # Keep the cell unchanged
+                    next_step_world.set_cell_value_at(
+                        self.world.get_cell_value_at(
+                            current_cell_pos_x, current_cell_pos_y),
+                        current_cell_pos_x, current_cell_pos_y)
+                elif total > 3 or total < 2:
+                    # Kill the cell
                     next_step_world.set_cell_value_at(
                         0, current_cell_pos_x, current_cell_pos_y)
-        print("End solve step")
+
         self.world = copy.deepcopy(next_step_world)
 
     def get_number_of_living_neighboring_cells(self, pos_x: int, pos_y: int) -> int:
@@ -101,7 +107,7 @@ def main():
 
     done: bool = False
 
-    CELL_SIZE = 30
+    CELL_SIZE = 10
 
     USE_SIMPLE_MATRIX: bool = False
     current_matrix: Matrix
