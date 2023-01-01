@@ -30,6 +30,8 @@ class Game:
         pass
 
     def start_game(self):
+        """Start the game"""
+
         pygame.init()
         self._screen = \
             pygame.display.set_mode((self.screen_size, self.screen_size))
@@ -54,6 +56,7 @@ class Game:
 
     def _update_screen_state(self):
         """Go through the current state, and renders it on the screen"""
+
         for y_index in range(0, self._y_length):
             for x_index in range(0, self._x_length):
 
@@ -64,6 +67,7 @@ class Game:
 
     def draw_cell(self, coords: Coords):
         """Draw a cell on the screen"""
+
         pygame.draw.rect(self._screen,
                          self.square_color,
                          (
@@ -74,6 +78,7 @@ class Game:
 
     def _events_check(self):
         """check if there is any event"""
+
         # Listen for all events
         for event in pygame.event.get():
             # Quit the infinite loop when the user presses the close button
