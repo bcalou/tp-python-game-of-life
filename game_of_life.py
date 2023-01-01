@@ -103,8 +103,19 @@ current_matrix_world: list[list[int]] = [
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
+
+simple_matrix_world: list[list[int]] = [
+    [0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0],
+]
 """
-TODO : Actuellement l'algo crée une copie du la matrice actuelle et fait les oppérations dans cette copie
+TODO : Actuellement l'algo crée une copie du la matrice actuelle et fait les oppérations dans cette copie.
+
+Draw pendant le solve pour ne pas parcourir duex fois
+
 
 Autres aroches: 
     -- Au lieu de faire une copie complette et de changer avec els coordonées, créer un tableau vide et le remplir au fur et à mesure, cela fera moins de copies 
@@ -119,7 +130,6 @@ def get_next_state(current_matrix: list[list[int]]):
 
     for current_cell_pos_y in range(len(current_matrix)):
         for current_cell_pos_x in range(len(current_matrix[0])):
-
             total: int = get_number_of_living_neighboring_cells(
                 current_matrix, current_cell_pos_x, current_cell_pos_y)
 
@@ -168,24 +178,26 @@ def draw_matrix(matrix: list[list[int]], screen: pygame.Surface):
 # Defining main function
 def main():
     global current_matrix_world
+    global simple_matrix_world
     pygame.init()
     clock = pygame.time.Clock()
 
     done: bool = False
 
-    CELL_SIZE = 16
+    CELL_SIZE = 64
     screen: pygame.surface.Surface = pygame.display.set_mode(
-        (len(current_matrix_world)*CELL_SIZE, len(current_matrix_world[0])*CELL_SIZE))
+        (len(simple_matrix_world)*CELL_SIZE, len(simple_matrix_world[0])*CELL_SIZE))
     # While the game is not over
     while not done:
         screen.fill((0, 0, 0))
-        draw_matrix(current_matrix_world, screen)
-        current_matrix_world = get_next_state(current_matrix_world)
+        draw_matrix(simple_matrix_world, screen)  # type: ignore
+        simple_matrix_world = get_next_state(simple_matrix_world)
         # Listen for all events
         for event in pygame.event.get():
             # Quit the infinite loop when the user presses the close button
             if event.type == pygame.QUIT:
                 done = True
+        clock.tick(2)
         pygame.display.flip()
 
     pygame.quit()
