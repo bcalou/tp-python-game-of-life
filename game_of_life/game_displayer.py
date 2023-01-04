@@ -8,14 +8,13 @@ import datetime as dt
 
 import game_of_life.const as const
 from game_of_life.types import *
-from game_of_life.game_controller import GameController
 
 
 class GameDisplayer:
     """Classe qui gère l'affichage du jeu.
     """
 
-    def __init__(self, parent: "GameController", size: Size, cell_size: int):
+    def __init__(self, parent, size: Size, cell_size: int):
         """Initialise le système d'affichage du jeu.
         """
         self.parent = parent
