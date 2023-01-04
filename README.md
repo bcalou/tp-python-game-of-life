@@ -104,9 +104,9 @@ pygame.draw.rect(screen, (255, 255, 255), (0, 0, 100, 100))
 pygame.display.flip()
 ```
 
-Les quatres derniers chiffres de la fonction `rect()` sont les coordonnées du carré : x, y, largeur, hauteur.
+Les quatre derniers chiffres de la fonction `rect()` sont les coordonnées du carré : x, y, largeur, hauteur.
 
-La fonction `flip` permet de rendre effectives les modifications effectuées sur l'écran. Il faut l'appeler à la fin de chaque update. Si vous dessinez plusieurs carrés à la suite, appellez là en dernier !
+La fonction `flip` permet de rendre effectives les modifications effectuées sur l'écran. Il faut l'appeler à la fin de chaque update. Si vous dessinez plusieurs carrés à la suite, appelez-là en dernier !
 
 Entraînez-vous à placer des carrés sur l'écran.
 
@@ -138,7 +138,7 @@ Comme écrire des matrices à la main n'est pas l'activité la plus stimulante p
 
 ## Étape 3 : calculer l'état suivant
 
-Le coeur de l'algorithme est le calcul de l'état suivant à partir des règles du jeu de la vie.
+Le cœur de l'algorithme est le calcul de l'état suivant à partir des règles du jeu de la vie.
 
 Par exemple, l'état présenté à la partie suivante évolue vers la forme suivante :
 
