@@ -16,19 +16,19 @@ class Board:
     FRAMES_PER_SECOND: int = 10
 
     def __init__(self, initial_state: State):
-        self._screen: Screen = pygame.display.set_mode(Board.SCREEN_SIZE)
+        self._screen: Screen = pygame.display.set_mode(self.SCREEN_SIZE)
 
         self._cell_size: int = self._get_cell_size(initial_state)
 
     def clear(self):
         """Clear the whole board"""
-        self._screen.fill(Board.COLOR_DEAD)
+        self._screen.fill(self.COLOR_DEAD)
 
     def draw_cell(self, coordinates: Coordinates):
         """Draw a cell at the given position"""
         pygame.draw.rect(
             self._screen,
-            Board.COLOR_ALIVE,
+            self.COLOR_ALIVE,
             [
                 coordinates[0] * self._cell_size,
                 coordinates[1] * self._cell_size,

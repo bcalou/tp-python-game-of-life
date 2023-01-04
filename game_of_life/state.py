@@ -60,7 +60,7 @@ class State:
         return (
             0 <= coordinates[0] < self._width
             and 0 <= coordinates[1] < self._height
-            and self.get_cell_state(coordinates) == State.ALIVE
+            and self.get_cell_state(coordinates) == self.ALIVE
         )
 
     def get_cell_state(self, coordinates: Coordinates) -> CellState:
@@ -90,7 +90,7 @@ class State:
                     coordinates[1] + neighbour_relative_coordinates[1]
                 )
             ),
-            State.NEIGHBOURHOOD_COORDINATES
+            self.NEIGHBOURHOOD_COORDINATES
         ))
 
         return len(neighbours)
@@ -99,7 +99,7 @@ class State:
         """Get a new state of the same size, filled with dead cells"""
 
         empty_state: CellsMatrix = [
-            ([State.DEAD] * self._width) for _ in range(self._height)
+            ([self.DEAD] * self._width) for _ in range(self._height)
         ]
 
         return State(empty_state)
