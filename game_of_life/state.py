@@ -49,7 +49,7 @@ class State:
         """Execute the given function for each cell which is alive"""
         self.for_each_cell(
             lambda coordinates: (
-                self.is_alive(coordinates) and function(coordinates)
+                function(coordinates) if self.is_alive(coordinates) else None
             )
         )
 

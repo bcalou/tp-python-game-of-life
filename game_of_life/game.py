@@ -49,9 +49,7 @@ class Game:
         # Generate an empty matrix that will store the next state
         # We need to do this to keep the initial state intact while we
         # check for changes
-        self._next_game_state: State = (
-          self._state.get_new_empty_state()
-        )
+        self._next_game_state: State = self._state.get_new_empty_state()
 
         # Compute the next game state by looking at each cell of the current
         # game state
