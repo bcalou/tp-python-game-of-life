@@ -13,7 +13,7 @@ Créez un fork de ce repository et clonez-le.
 Installez le module `pygame` grâce à la commande suivante (et en adaptant à votre version de python):
 
 ```
-python3.10 -m pip install -U pygame --user
+python3 -m pip install -U pygame --user
 ```
 
 Pour vérifier la bonne installation, vous pouvez lancez un des exemples inclus dans le module :
