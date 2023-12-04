@@ -9,6 +9,18 @@ def main():
 
     done = False
 
+    initial_state: list[list[int]] = [
+        [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 0, 0, 1, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
     # While the game is not over
     while not done:
 
@@ -21,16 +33,26 @@ def main():
             # Effacer l'écran
             screen.fill((0, 0, 0))
 
-            # Déssine un carrée blanc (ecran, couleur, (x,y,x2,y2))
-            pygame.draw.rect(screen, (255, 255, 255), (0, 0, 100, 100))
+            # Déssine l'etat initial_state
+            print_state(screen, initial_state)
             
             # Applique les déssins sur l'écran
             pygame.display.flip()
 
-        print("Update !")
+        # print("Update !")
         clock.tick(30)
 
     pygame.quit()
+
+pixel_size = 25
+def print_state(screen, state: list[list[int]]) -> None:
+    for y, row in enumerate(state):
+        for x, cell in enumerate(row):
+            if cell == 1:
+                pygame.draw.rect(screen, (255, 255, 255), (x*pixel_size, y*pixel_size, x+pixel_size, y+pixel_size))
+            else:
+                pygame.draw.rect(screen, (50, 50, 50), (x*pixel_size, y*pixel_size, x+pixel_size, y+pixel_size))
+
 
 
 main()
