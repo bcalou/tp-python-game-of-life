@@ -1,9 +1,10 @@
 import pygame
+import game_of_life.global_variables as gv
 
 pygame.init()
 
 def main():
-    screen = pygame.display.set_mode((1000, 1000))
+    screen = pygame.display.set_mode((gv.WINDOW_WIDTH, gv.WINDOW_HEIGHT))
     clock = pygame.time.Clock()
     done = False
 

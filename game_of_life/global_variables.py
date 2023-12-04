@@ -1,0 +1,2 @@
+WINDOW_WIDTH: int = 1000;
+WINDOW_HEIGHT: int = 1000;
