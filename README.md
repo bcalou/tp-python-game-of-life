@@ -24,7 +24,7 @@ python3 -m pygame.examples.aliens
 
 Gardez le lien de la [documentation de pygame](https://www.pygame.org/docs/) sous la main. Elle pourrait vous être utile !
 
-Dans le fichier `game_of_life.py`, ajoutez les lignes suivantes pour utiliser `pygame` :
+Dans le fichier `__main__.py`, ajoutez les lignes suivantes pour utiliser `pygame` :
 
 ```py
 import pygame
@@ -49,7 +49,7 @@ Dans cette étape, nous allons aborder tout ce que vous avez besoin de savoir su
 L'instruction suivante permet d'ouvrir une fenêtre de jeu :
 
 ```py
-screen: pygame.surface.Surface = pygame.display.set_mode((1000, 1000))
+screen = pygame.display.set_mode((1000, 1000))
 ```
 
 `(1000, 1000)` est un [tuple](https://courspython.com/tuple.html) représentant la taille de l'écran souhaitée.
@@ -65,7 +65,7 @@ Voici comment demander au jeu de rester actif et de se mettre à jour une fois p
 ```py
 clock = pygame.time.Clock()
 
-done: bool = False
+done = False
 
 # While the game is not over
 while not done:
@@ -154,17 +154,15 @@ Puis il revient à l'état initial (c'est un oscillateur).
 
 Implémentez une fonction `get_next_state` retournant un nouvel état en fonction d'un état donné.
 
-Le fichier `test.py` contient un test qui vous permettra de savoir si l'algorithme est correctement implémenté.
-
 Vous n'avez plus qu'à générer un nouveau rendu avec votre nouvel état !
 
 Testez votre programme avec différentes structures dont vous trouverez les modèles sur Internet.
 
-Vous pouvez à cette étape rendre votre TP grâce à une pull request vers le repository original.
-  
 ## Étape 4 : feu !
 
 Voici le plus petit "canon à planeur" connu. Toutes les itérations, les règles du jeu de la vie forment à partir de cette structure un planeur, c'est à dire une petite structure autonome qui se déplace. Utilisez et admirez.
+
+Pour votre rendu, lorsque votre programme est lancé, c'est cette matrice qui doit être utilisée comme matrice de départ automatiquement.
 
 ```
 [
@@ -230,7 +228,5 @@ Attention, il ne s'agit pas seulement d'encapsuler votre code dans un objet clas
 - possibilité de maintenir un état interne pour limiter le nombre de paramètres passés d'une fonction à une autre
 - possibilité d'utiliser plusieurs classes (non obligatoire) pour séparer différents domaines logiques
 - etc...
-
-_Note : les tests ne passeront plus, ce n'est pas grave._
 
 Il serait ensuite possible de créer des classes dérivées pour gérer des variantes du jeu de la vie, mais cela sort du cadre de ce TP.
