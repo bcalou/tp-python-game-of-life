@@ -28,13 +28,13 @@ class Game():
                     done = True
 
             if not self.paused:
-                self.state = self.__get_next_state(self.state)
+                self.state = self.get_next_state(self.state)
                 self.renderer.draw_game(self.state)
             self.clock.tick(const.FPS)
 
         pygame.quit()
 
-    def __get_next_state(self, state: list[list[int]]) -> list[list[int]]:
+    def get_next_state(self, state: list[list[int]]) -> list[list[int]]:
         """Calculates the next state of the game"""
         # Initialize the new state var
         new_state: list[list[int]] = [[] for row in state]
