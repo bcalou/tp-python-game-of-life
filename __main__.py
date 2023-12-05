@@ -25,8 +25,7 @@ def main():
                 done = True
 
         pygame.display.flip()
-        print("Update !")
-        clock.tick(0.5)
+        clock.tick(30)
 
     pygame.quit()
 
