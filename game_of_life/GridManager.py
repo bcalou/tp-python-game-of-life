@@ -136,8 +136,6 @@ class GridManager:
     def update_grid(self) -> None:
         """
         Updates the grid based on the current state of the cells.
-
-        :return: None
         """
         temp_grid: list[list[int]] = [[0 for _ in range(GRID_SIZE[0])] for
                                       _ in range(GRID_SIZE[1])]
@@ -170,7 +168,6 @@ class GridManager:
         :param x: x-coordinate of the cell
         :param y: y-coordinate of the cell
         :return: Number of neighbors around the given cell
-
         """
         count: int = 0
         for neighbor in NEIGHBORS:

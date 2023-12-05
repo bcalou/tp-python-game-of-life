@@ -20,7 +20,6 @@ class ScreenManager:
         Draws a grid on the screen.
 
         :param grid: A 2D list representing the grid.
-        :return: None
         """
         for y in range(len(grid)):
             for x in range(len(grid[y])):
@@ -37,7 +36,6 @@ class ScreenManager:
 
         :param x: The x-coordinate of the square's position.
         :param y: The y-coordinate of the square's position.
-        :return: None
         """
         pos_x: int = x * SQUARE_SIZE
         pos_y: int = y * SQUARE_SIZE
@@ -53,7 +51,6 @@ class ScreenManager:
 
         :param x: The x-coordinate of the square.
         :param y: The y-coordinate of the square.
-        :return: None
         """
         pos_x: int = x * SQUARE_SIZE
         pos_y: int = y * SQUARE_SIZE
