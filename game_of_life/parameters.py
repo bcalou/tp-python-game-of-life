@@ -1,10 +1,10 @@
-# Screen parameters
+from typing import List
 
-SCREEN_SIZE: tuple[int, int] = (1200, 700)
-CELL_SIZE: int = 5
-FRAME_RATE: int = 100
+# Alias de types
 
-# Colours
+Array2 = List[List[int]]
+
+# Couleurs
 
 COLORS = {
     'black': (0, 0, 0),
@@ -18,3 +18,14 @@ COLORS = {
     'gray': (128, 128, 128),
     'pink': (255, 153, 153),
 }
+
+# Paramètres : preset
+
+PRESET_NAME: str = "Canon" # ex: Glider, Blinker, Toad, Pulsar, Canon
+PRESET_COLOR: tuple = COLORS['pink']
+
+# Paramètres : écran
+
+SCREEN_SIZE: tuple[int, int] = (1200, 700)
+CELL_SIZE: int = 7
+FRAME_RATE: int = 10
