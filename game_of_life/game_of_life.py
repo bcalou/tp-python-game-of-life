@@ -16,7 +16,6 @@ class GameOfLife:
         """
         Takes the original states of the game as parameter
         """
-
         self.__board: Board = Board(initial_state)
 
     def next_state(self) -> None:
@@ -28,7 +27,7 @@ class GameOfLife:
         for y in range(self.get_height()):
             new_row: list[int] = []
             for x in range(self.get_width()):
-                neighbour_count: int = self.get_neighbours_count(x, y)
+                neighbour_count: int = self.__board.get_neighbours_count(x, y)
 
                 # A cell stays/becomes alive if it has 3 neighbours
                 if neighbour_count == 3:
@@ -42,22 +41,6 @@ class GameOfLife:
             next_state.append(new_row)
 
         self.__board.set_board(next_state)
-
-    def get_neighbours_count(self, x: int, y: int) -> int:
-        """
-        Count the number of neighbour of a cell
-        """
-        count: int = 0
-
-        x_coords: list[int] = [x-1, x,  x+1]
-        y_coords: list[int] = [y-1, y, y+1]
-
-        for neighbour_x in x_coords:
-            for neighbour_y in y_coords:
-                if neighbour_x is not x or neighbour_y is not y:
-                    count += self.__board.get_cell(neighbour_x, neighbour_y)
-
-        return count
 
     def get_width(self) -> int:
         """

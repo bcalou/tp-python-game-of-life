@@ -31,6 +31,23 @@ class Board:
         self.__height: int = len(state)
         self.__board: list[list[int]] = state
 
+    def get_neighbours_count(self, x: int, y: int) -> int:
+        """
+        Count the number of neighbour of a cell
+        """
+        count: int = 0
+
+        # Possible neighbours coordinates
+        x_coords: list[int] = [x-1, x,  x+1]
+        y_coords: list[int] = [y-1, y, y+1]
+
+        for neighbour_x in x_coords:
+            for neighbour_y in y_coords:
+                if neighbour_x is not x or neighbour_y is not y:
+                    count += self.get_cell(neighbour_x, neighbour_y)
+
+        return count
+
     def get_width(self):
         """
         Returns the width of the board
