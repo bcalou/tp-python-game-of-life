@@ -1,22 +1,8 @@
-import random
+from game_of_life.board import Board
 
 
 DEAD: int = 0
 ALIVE: int = 1
-
-
-def generate_random_line(width: int) -> list[int]:
-    """
-    Randomly generates a line of size: `width` with ones and zeroes
-    """
-    return [random.randint(0, 1) for _ in range(width)]
-
-
-def generate_random_state(width: int, height: int) -> list[list[int]]:
-    """
-    Randomly generates a board of size: `width`*`height` with ones and zeroes
-    """
-    return [generate_random_line(width) for _ in range(height)]
 
 
 class GameOfLife:
@@ -30,9 +16,8 @@ class GameOfLife:
         """
         Takes the original states of the game as parameter
         """
-        self.__width: int = len(initial_state[0])
-        self.__height: int = len(initial_state)
-        self.__state: list[list[int]] = initial_state
+
+        self.__board: Board = Board(initial_state)
 
     def next_state(self) -> None:
         """
@@ -40,23 +25,23 @@ class GameOfLife:
         original rules of Game of life
         """
         next_state: list[list[int]] = []
-        for y, row in enumerate(self.__state):
+        for y in range(self.get_height()):
             new_row: list[int] = []
-            for x in range(len(row)):
+            for x in range(self.get_width()):
                 neighbour_count: int = self.get_neighbours_count(x, y)
-                
+
                 # A cell stays/becomes alive if it has 3 neighbours
                 if neighbour_count == 3:
                     new_row.append(ALIVE)
                 # A cell stays alive/dead if it has 2 neighbours
                 elif neighbour_count == 2:
-                    new_row.append(self.__state[y][x])
+                    new_row.append(self.__board.get_cell(x, y))
                 # With <2 or >3 neighbour, a cell dies
                 else:
                     new_row.append(DEAD)
             next_state.append(new_row)
 
-        self.__state = next_state
+        self.__board.set_board(next_state)
 
     def get_neighbours_count(self, x: int, y: int) -> int:
         """
@@ -70,9 +55,21 @@ class GameOfLife:
         for neighbour_x in x_coords:
             for neighbour_y in y_coords:
                 if neighbour_x is not x or neighbour_y is not y:
-                    count += self.get_cell(neighbour_x, neighbour_y)
+                    count += self.__board.get_cell(neighbour_x, neighbour_y)
 
         return count
+
+    def get_width(self) -> int:
+        """
+        Returns the width of the board
+        """
+        return self.__board.get_width()
+
+    def get_height(self) -> int:
+        """
+        Returns the height of the board
+        """
+        return self.__board.get_height()
 
     def get_cell(self, x: int, y: int) -> int:
         """
@@ -80,19 +77,4 @@ class GameOfLife:
 
         if the coordinates are invalid, return 0 (DEAD)
         """
-        if x >= 0 and x < self.get_width() and \
-           y >= 0 and y < self.get_height():
-            return self.__state[y][x]
-        return 0
-
-    def get_width(self) -> int:
-        """
-        Returns the width of the board
-        """
-        return self.__width
-
-    def get_height(self) -> int:
-        """
-        Returns the height of the board
-        """
-        return self.__height
+        return self.__board.get_cell(x, y)

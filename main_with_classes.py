@@ -1,5 +1,5 @@
 import pygame
-from game_of_life.game_of_life import GameOfLife, generate_random_state
+from game_of_life.game_of_life import GameOfLife
 from game_of_life.default import GLIDER_GUN
 
 

@@ -18,7 +18,7 @@ def main():
     done = False
 
     state: list[list[int]] = GLIDER_GUN
-    
+
     # for y in range(0, 3):
     #         print(f"{get_neighbours_count(state, 0, y)} \
     #                 {get_neighbours_count(state, 1, y)} \
