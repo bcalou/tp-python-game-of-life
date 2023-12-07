@@ -10,9 +10,9 @@ class GridManager:
             for _ in range(SCREEN_SQUARE_SIZE[1])
         ]
 
-        self.initialize_grid()
+        self.__initialize_grid()
 
-    def initialize_grid(self) -> None:
+    def __initialize_grid(self) -> None:
         """
         Initializes the grid with the initial state defined in constants.
         The initial state is centered in the grid.
@@ -33,11 +33,11 @@ class GridManager:
 
         for y in range(len(self.__grid)):
             for x in range(len(self.__grid[y])):
-                temp_grid[y][x] = self.get_next_state(x, y)
+                temp_grid[y][x] = self.__get_next_state(x, y)
 
         self.__grid = temp_grid
 
-    def get_next_state(self, x: int, y: int) -> int:
+    def __get_next_state(self, x: int, y: int) -> int:
         """
         Calculate and return the next state of a cell in the grid.
          - if the cell is alive and has 2 or 3 neighbors, it stays alive,
@@ -50,7 +50,7 @@ class GridManager:
         :param y: The y-coordinate of the cell.
         :return: The next state of the cell (0 or 1).
         """
-        neighbors: int = self.count_neighbors(x, y)
+        neighbors: int = self.__count_neighbors(x, y)
         if neighbors == 3:
             return 1
 
@@ -59,7 +59,7 @@ class GridManager:
 
         return self.__grid[y][x]
 
-    def count_neighbors(self, x: int, y: int, ) -> int:
+    def __count_neighbors(self, x: int, y: int, ) -> int:
         """
         :param x: x-coordinate of the cell
         :param y: y-coordinate of the cell

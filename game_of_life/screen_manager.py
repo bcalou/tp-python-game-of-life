@@ -21,12 +21,12 @@ class ScreenManager:
         for y in range(len(grid)):
             for x in range(len(grid[y])):
                 if grid[y][x] == 0:
-                    self.draw_void(x, y)
+                    self.__draw_void(x, y)
                 else:
-                    self.draw_square(x, y)
+                    self.__draw_square(x, y)
         pygame.display.flip()
 
-    def draw_square(self, x: int, y: int) -> None:
+    def __draw_square(self, x: int, y: int) -> None:
         """
         This method is used for drawing a square on the screen at a
         specified position.
@@ -42,7 +42,7 @@ class ScreenManager:
                          (pos_x + 1, pos_y + 1, SQUARE_SIZE - 2,
                           SQUARE_SIZE - 2))
 
-    def draw_void(self, x: int, y: int) -> None:
+    def __draw_void(self, x: int, y: int) -> None:
         """
         Draws a void square on the screen at the specified coordinates.
 
