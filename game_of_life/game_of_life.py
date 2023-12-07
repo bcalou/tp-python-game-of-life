@@ -3,15 +3,16 @@ import game_of_life.global_variables as gv
 
 
 class Game_of_life:
-    state_matrix: list[list[int]] = []
+    state_matrix: gv.Matrix = []
 
-    def __init__(self, initial_state: list[list[int]]):
+    def __init__(self, initial_state: gv.Matrix):
         """
         Constructor of the Game_of_life class.
         """
         self.state_matrix = initial_state
 
-    def __count_neighbors(self, x, y, current_state):
+    def __count_neighbors(self, x: int, y: int,
+                          current_state: gv.Matrix) -> int:
         """
         Counts the number of neighbors of a cell.
         """
@@ -22,8 +23,7 @@ class Game_of_life:
         count -= current_state[x][y]
         return count
 
-    def get_next_state(self, current_state: list[list[int]]) -> list[
-            list[int]]:
+    def get_next_state(self, current_state: gv.Matrix) -> gv.Matrix:
         """
         Returns the next state of the game of life.
         """

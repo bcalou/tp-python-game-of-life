@@ -11,7 +11,6 @@ WHITE: tuple[int, int, int] = (255, 255, 255)
 Matrix = list[list[int]]
 
 # Initial states
-
 INITIAL_STATE: Matrix = [
         [0, 1, 0],
         [0, 1, 0],
