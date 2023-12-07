@@ -72,7 +72,7 @@ class GridManager:
                 count += self.__grid[y + neighbor[1]][x + neighbor[0]]
         return count
 
-    def get_grid(self):
+    def get_grid(self) -> matrix2:
         """
         :return: The grid.
         """
