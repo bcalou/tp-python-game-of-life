@@ -50,20 +50,22 @@ class View():
     def __draw_current_state(self):
         """draw the state of the game of life"""
 
+        # Clear the screen
         self.__screen.fill((0, 0, 0))
         game_state = self.__game_manager.get_next_state()
 
-        x_position: float = 0
-        y_position: float = 0
+        x_pivot: float = 0
+        y_pivot: float = 0
 
+        # Explore the list of cells to display them
         for line in game_state:
             for cell in line:
                 if cell == 1:
                     pygame.draw.rect(self.__screen, (255, 255, 255),
-                                     (x_position, y_position,
+                                     (x_pivot, y_pivot,
                                          self.__cells_size, self.__cells_size))
 
-                x_position += self.__cells_size
+                x_pivot += self.__cells_size
 
-            x_position = 0
-            y_position += self.__cells_size
+            x_pivot = 0
+            y_pivot += self.__cells_size
