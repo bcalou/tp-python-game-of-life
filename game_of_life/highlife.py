@@ -23,7 +23,7 @@ class HighLife(GameOfLife):
         A cell survives if it has 2 or 3 neighbours
 
         """
-        # A cell stays/becomes alive if it has 3 neighbours
+        # A cell becomes alive if it has 3 neighbours
         if cell_state == DEAD and (
            neighbour_count == 3 or neighbour_count == 6):
             return ALIVE
