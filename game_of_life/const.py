@@ -1,6 +1,6 @@
 # Rendering constants
 SCREEN_DIMENSIONS = (1000, 800)
-CELL_SIZE = 10
+CELL_SIZE = 20
 FPS = 30
 
 # Color constants
