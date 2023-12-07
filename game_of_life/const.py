@@ -1,18 +1,20 @@
+from game_of_life import array2d
+
 # Rendering constants
-SCREEN_DIMENSIONS = (1000, 800)
-CELL_SIZE = 20
-FPS = 30
+SCREEN_DIMENSIONS: tuple = (1000, 800)
+CELL_SIZE: int = 20
+FPS: int = 30
 
 # Color constants
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+BLACK: tuple = (0, 0, 0)
+WHITE: tuple = (255, 255, 255)
 
 # Game logic constants
-DIRECTIONS = (
+DIRECTIONS: tuple = (
     (-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)
 )
 
-INITIAL_STATE = [
+INITIAL_STATE: array2d = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

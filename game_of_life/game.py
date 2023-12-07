@@ -1,16 +1,16 @@
 import pygame
-from game_of_life import const
+from game_of_life import const, array2d
 from game_of_life.rendering import Renderer
 
 
 class Game():
     """Represents an instance of the game of life"""
-    state: list[list[int]]
+    state: array2d
     renderer: Renderer
     clock: pygame.time.Clock
     paused: bool = False
 
-    def __init__(self, state: list[list[int]]) -> None:
+    def __init__(self, state: array2d) -> None:
         self.state = state
         self.clock = pygame.time.Clock()
 
@@ -28,29 +28,41 @@ class Game():
                     done = True
 
             if not self.paused:
-                self.state = self.get_next_state(self.state)
-                self.renderer.draw_game(self.state)
+                self.perform_game_tick()
             self.clock.tick(const.FPS)
 
         pygame.quit()
 
-    def get_next_state(self, state: list[list[int]]) -> list[list[int]]:
-        """Calculates the next state of the game"""
+    def perform_game_tick(self) -> None:
+        """
+        Performs a game tick and renders it.
+        """
         # Initialize the new state var
-        new_state: list[list[int]] = [[] for row in state]
+        new_state: array2d = [[] for row in self.state]
+
+        self.renderer.clear()
 
         # Loop through all and calculate the new states
-        for row_index in range(0, len(state)):
-            for column_index in range(0, len(state[0])):
-                new_state[row_index].append(self.__calc_cell_state(
-                    (row_index, column_index), state
-                ))
+        for row_index in range(0, len(self.state)):
+            for column_index in range(0, len(self.state[0])):
+                new_cell_state: int = self.__update_cell_state(
+                    (row_index, column_index), self.state
+                )
 
-        return new_state
+                new_state[row_index].append(new_cell_state)
+                if (new_cell_state == 1):
+                    self.renderer.draw_cell(column_index, row_index)
 
-    def __calc_cell_state(self, cell_id: tuple, grid: list[list[int]]) -> int:
-        """Calculates the next state of a cell given its neighbours"""
-        neighbours: int = self.__calc_neighbours(cell_id, grid)
+        self.renderer.update()
+        self.state = new_state
+
+    def __update_cell_state(self, cell_id: tuple, grid: array2d) -> int:
+        """
+        Updates the next state of a cell given its neighbours
+        A live cell remains alive if it has 2-3 neighbours and dies otherwise.
+        A dead cell becomes alive if it has exactly 3 neighbours.
+        """
+        neighbours: int = self.__get_neighbour_count(cell_id, grid)
 
         # If cell is alive
         if grid[cell_id[0]][cell_id[1]] == 1:
@@ -58,7 +70,7 @@ class Game():
         else:
             return 0 if neighbours != 3 else 1
 
-    def __calc_neighbours(self, cell_id: tuple, grid: list[list[int]]) -> int:
+    def __get_neighbour_count(self, cell_id: tuple, grid: array2d) -> int:
         """Calculates the number of alive neighbours of a cell"""
         neighbours: int = 0
         for direction in const.DIRECTIONS:

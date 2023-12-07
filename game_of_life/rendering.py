@@ -1,7 +1,7 @@
 from pygame import Surface
 import pygame
 
-from game_of_life import const
+from game_of_life import const, array2d
 
 
 class Renderer():
@@ -11,20 +11,21 @@ class Renderer():
     def __init__(self, screen: Surface) -> None:
         self.screen = screen
 
-    def draw_game(self, state: list[list[int]]) -> None:
-        """Draws the game screen given the current state"""
-        self.screen.fill(const.BLACK)
-
-        for row_index, cell_row in enumerate(state):
-            for column_index, cell in enumerate(cell_row):
-                if cell == 1:
-                    cell_rect: tuple = (
-                        column_index * const.CELL_SIZE,
-                        row_index * const.CELL_SIZE,
+    def draw_cell(self, cell_row: int, cell_column: int) -> None:
+        """Draws a single cell on the grid"""
+        cell_rect: tuple = (
+                        cell_row * const.CELL_SIZE,
+                        cell_column * const.CELL_SIZE,
                         const.CELL_SIZE,
                         const.CELL_SIZE
                     )
 
-                    pygame.draw.rect(self.screen, const.WHITE, cell_rect)
+        pygame.draw.rect(self.screen, const.WHITE, cell_rect)
 
+    def clear(self) -> None:
+        """Clears the game canvas"""
+        self.screen.fill(const.BLACK)
+
+    def update(self) -> None:
+        """Displays all changes made on the canvas"""
         pygame.display.flip()
