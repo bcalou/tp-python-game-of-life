@@ -1,4 +1,8 @@
 def get_neighbours_count(state: list[list[int]], x: int, y: int) -> int:
+    """
+    Count the number of neighbour of a cell
+    """
+
     count: int = 0
 
     heigh: int = len(state)
@@ -11,8 +15,9 @@ def get_neighbours_count(state: list[list[int]], x: int, y: int) -> int:
         for neighbour_y in y_coords:
             if neighbour_x is not x or neighbour_y is not y:
                 if (neighbour_x >= 0 and neighbour_x < width
-                and neighbour_y >= 0 and neighbour_y < heigh):
-                    # print(f"{x}/{y} : {neighbour_x}/{neighbour_y} ({state[neighbour_x][neighbour_y]})")
+                   and neighbour_y >= 0 and neighbour_y < heigh):
+                    # print(f"{x}/{y} : {neighbour_x}/{neighbour_y} \
+                    # ({state[neighbour_x][neighbour_y]})")
                     count += state[neighbour_y][neighbour_x]
 
     return count

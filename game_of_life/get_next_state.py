@@ -2,11 +2,14 @@ from game_of_life.get_neighbours_count import get_neighbours_count
 
 
 def get_next_state(current_state: list[list[int]]) -> list[list[int]]:
-
+    """
+    Returns an updated state of the game according to Conway's
+    original rules of Game of life
+    """
     next_state: list[list[int]] = []
     for y, row in enumerate(current_state):
         new_row: list[int] = []
-        for x, cell in enumerate(row):
+        for x in range(len(row)):
             neighbour_count: int = get_neighbours_count(current_state, x, y)
             if neighbour_count == 3:
                 new_row.append(1)
