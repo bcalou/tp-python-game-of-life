@@ -11,7 +11,7 @@ class Game_of_life:
         """
         self.state_matrix = initial_state
 
-    def count_neighbors(self, x, y, current_state):
+    def __count_neighbors(self, x, y, current_state):
         """
         Counts the number of neighbors of a cell.
         """
@@ -31,7 +31,7 @@ class Game_of_life:
                       for _ in range(len(current_state))]
         for i in range(len(current_state)):
             for j in range(len(current_state[i])):
-                neighbors = self.count_neighbors(i, j, current_state)
+                neighbors = self.__count_neighbors(i, j, current_state)
                 if current_state[i][j] == 1 and (
                         neighbors < 2 or neighbors > 3):
                     next_state[i][j] = 0
