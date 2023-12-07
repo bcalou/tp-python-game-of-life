@@ -1,5 +1,13 @@
+from game_of_life.GameMaster import GameMaster
+
+
 def main():
-    print("Hello world")
+
+    game: GameMaster = GameMaster()
+
+    game.run()
+
+    game.quit()
 
 
 main()
