@@ -8,7 +8,7 @@ class Game():
     __grid_size_x: int
     __grid_size_y: int
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.__current_state = constants.INITIAL_STATE
         self.__grid_size_x = len(constants.INITIAL_STATE[0])
         self.__grid_size_y = len(constants.INITIAL_STATE)
