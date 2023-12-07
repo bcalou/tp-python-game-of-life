@@ -40,6 +40,11 @@ class GridManager:
     def get_next_state(self, x: int, y: int) -> int:
         """
         Calculate and return the next state of a cell in the grid.
+         - if the cell is alive and has 2 or 3 neighbors, it stays alive,
+           else it dies
+         - if the cell is dead and has 3 neighbors, it becomes alive,
+           else it stays dead
+
 
         :param x: The x-coordinate of the cell.
         :param y: The y-coordinate of the cell.
