@@ -19,10 +19,7 @@ class GameMaster():
             self.__enums.FPS)
 
         self.__matrix_manager: MatrixManager = MatrixManager(
-            self.__enums.MATRIX_WIDTH,
-            self.__enums.MATRIX_HEIGHT)
-
-        self.__matrix_manager.replace_matrix(self.__enums.START_MATRIX)
+            self.__enums.START_MATRIX)
 
     def run(self) -> None:
         '''
@@ -32,7 +29,7 @@ class GameMaster():
 
         while not done:
 
-            done = self.__screen_manager.want_quit()
+            done = self.__screen_manager.wants_to_quit()
 
             self.__screen_manager.refresh_view(
                 self.__matrix_manager.get_matrix())

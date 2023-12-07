@@ -1,17 +1,14 @@
 class MatrixManager():
 
-    def __init__(self, width, height) -> None:
+    def __init__(self, matrix: list[list[int]]) -> None:
         '''
-            Create an empty matrix.
+            Create a matrix filled from imbricated arrays (basically a copy).
         '''
 
-        self.__width: int = width
-        self.__height: int = height
+        self.__width: int = len(matrix[0])
+        self.__height: int = len(matrix)
 
-        self.__matrix: list[list[int]] = []
-
-        for i in range(height):
-            self.__matrix.append([])
+        self.__matrix: list[list[int]] = matrix
 
     def replace_matrix(self, matrix: list[list[int]]) -> None:
         '''
@@ -47,61 +44,62 @@ class MatrixManager():
         for i in range(len(self.__matrix)):
             # Browse through rows to generate copies with updated values
 
-            row: list[int] = []
+            updated_row: list[int] = []
 
             for j in range(len(self.__matrix[i])):
                 # Browse through columns and calculate rows updated values
 
-                life_indicator: int = self.calculate_life_indicator(i, j)
+                alive_neighbours: int = self.get_alive_neighbours(i, j)
 
-                row.append(self.determine_fate(self.__matrix[i][j],
-                                               life_indicator))
+                updated_value: int = self.determine_fate(self.__matrix[i][j],
+                                                         alive_neighbours)
+                updated_row.append(updated_value)
 
-            new_matrix.append(row)
+            new_matrix.append(updated_row)
 
         self.__matrix = new_matrix
 
-    def calculate_life_indicator(self, row: int, column: int) -> int:
+    def get_alive_neighbours(self, row: int, column: int) -> int:
         '''
-            Will be useful to know if cell will live, spawn or die.
+            Get alive neighbours to determine the fate of the cell.
         '''
 
-        life_indicator: int = 0
+        alive_neighbours_count: int = 0
 
         for i in range(row - 1, row + 2):
-            # Browse thrue row neighbours
+            # Browse through row neighbours
 
             if (i < 0 or i >= self.__height):
                 # except if they doesn't exists
                 continue
 
             for j in range(column - 1, column + 2):
-                # Browse thrue column neighbours
+                # Browse through column neighbours
 
                 if ((j == column and i == row) or j < 0 or j >= self.__width):
                     # except if they doesn't exists or
-                    # the cell is browsing herself
+                    # the cell is browsing itself
                     continue
 
-                life_indicator += self.__matrix[i][j]
+                alive_neighbours_count += self.__matrix[i][j]
 
-        return life_indicator
+        return alive_neighbours_count
 
-    def determine_fate(self, cell_value: int, life_indicator: int) -> int:
+    def determine_fate(self, cell_value: int, alive_neighbours: int) -> int:
         '''
             Kill, Spawn or let the cell in place
         '''
 
         if cell_value == 1:
             # if alive
-            if life_indicator < 2 or life_indicator > 3:
+            if alive_neighbours < 2 or alive_neighbours > 3:
 
-                cell_value = 0
+                return 0
 
         else:
             # if ded
-            if life_indicator == 3:
+            if alive_neighbours == 3:
 
-                cell_value = 1
+                return 1
 
         return cell_value

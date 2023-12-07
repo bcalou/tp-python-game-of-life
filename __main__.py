@@ -7,8 +7,6 @@ def main():
 
     game.run()
 
-    done = False
-
     game.quit()
 
 
