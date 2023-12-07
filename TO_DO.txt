@@ -1,0 +1,5 @@
+variables privées
+pycodestyle
+ajouter des commentaires
+déplacer variables locales ?
+type variables
