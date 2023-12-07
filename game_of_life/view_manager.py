@@ -1,14 +1,16 @@
 import pygame
-import constants
-from game_of_life_manager import Game
+from game_of_life import constants
+from game_of_life.game_manager import Game
 
 
 class View():
+    """Manage the screen which displays the game"""
+
     __screen: pygame.Surface
     __clock: pygame.time.Clock
     __game_manager: Game
     __done: bool
-    __cells_size : float
+    __cells_size: float
 
     def __init__(self, game_of_life_manager):
         self.__screen = pygame.display.set_mode(constants.SCREEN_SIZE)
@@ -18,12 +20,11 @@ class View():
         self.__init_sizes()
         self.__manage_screen()
 
-
     def __init_sizes(self):
         """set cells size"""
 
-        self.__cells_size = constants.SCREEN_SIZE[0] / len(constants.INITIAL_STATE)
-
+        self.__cells_size = \
+            constants.SCREEN_SIZE[0] / len(constants.INITIAL_STATE)
 
     def __manage_screen(self):
         """manage what is drawn on the screen and when it's over"""
@@ -46,7 +47,6 @@ class View():
 
         pygame.quit()
 
-
     def __draw_current_state(self):
         """draw the state of the game of life"""
 
@@ -60,8 +60,8 @@ class View():
             for cell in line:
                 if cell == 1:
                     pygame.draw.rect(self.__screen, (255, 255, 255),
-                                    (x_position, y_position,
-                                    self.__cells_size, self.__cells_size))
+                                     (x_position, y_position,
+                                         self.__cells_size, self.__cells_size))
 
                 x_position += self.__cells_size
 

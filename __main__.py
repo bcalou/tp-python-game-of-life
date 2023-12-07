@@ -1,6 +1,6 @@
 import pygame
-from game_of_life_manager import Game
-from view_manager import View
+from game_of_life.game_manager import Game
+from game_of_life.view_manager import View
 
 pygame.init()
 
