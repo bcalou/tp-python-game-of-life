@@ -1,8 +1,8 @@
 import pygame
 from pygame.time import Clock
 
-from game_of_life.GridManager import GridManager
-from game_of_life.ScreenManager import ScreenManager
+from game_of_life.grid_manager import GridManager
+from game_of_life.screen_manager import ScreenManager
 
 
 def main() -> None:
@@ -20,7 +20,7 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 done = True
 
-        screen_manager.draw_grid(grid_manager.grid)
+        screen_manager.draw_grid(grid_manager.get_grid())
         clock.tick(30)
         grid_manager.update_grid()
 
