@@ -1,5 +1,4 @@
 import pygame
-from game_of_life.cell import *
 from game_of_life.grid import *
 
 def main():
@@ -75,7 +74,8 @@ def main():
                 done = True
 
         print("Update !")
-        clock.tick(1)
+        grid.draw_next_state()
+        clock.tick(0.5)
 
     pygame.quit()
     
