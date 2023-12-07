@@ -1,6 +1,9 @@
+from game_of_life.Consts import maTrix
+
+
 class MatrixManager():
 
-    def __init__(self, matrix: list[list[int]]) -> None:
+    def __init__(self, matrix: maTrix) -> None:
         '''
             Create a matrix filled from imbricated arrays (basically a copy).
         '''
@@ -8,9 +11,9 @@ class MatrixManager():
         self.__width: int = len(matrix[0])
         self.__height: int = len(matrix)
 
-        self.__matrix: list[list[int]] = matrix
+        self.__matrix: maTrix = matrix
 
-    def replace_matrix(self, matrix: list[list[int]]) -> None:
+    def replace_matrix(self, matrix: maTrix) -> None:
         '''
             Create a matrix filled from imbricated arrays (basically a copy).
         '''
@@ -18,7 +21,7 @@ class MatrixManager():
         self.__width: int = len(matrix[0])
         self.__height: int = len(matrix)
 
-        self.__matrix: list[list[int]] = matrix
+        self.__matrix: maTrix = matrix
 
     def get_cell(self, row: int, column: int) -> int:
         '''
@@ -27,7 +30,7 @@ class MatrixManager():
 
         return self.matrix[row][column]
 
-    def get_matrix(self) -> list[list[int]]:
+    def get_matrix(self) -> maTrix:
         '''
             Give the matrix stored.
         '''
@@ -39,7 +42,7 @@ class MatrixManager():
             Update the stored matrix according to the game_of_life rules.
         '''
 
-        new_matrix: list[list[int]] = []
+        new_matrix: maTrix = []
 
         for i in range(len(self.__matrix)):
             # Browse through rows to generate copies with updated values

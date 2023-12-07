@@ -1,5 +1,4 @@
 import pygame
-from game_of_life.Consts import Enums
 
 
 class ScreenManager():
@@ -44,7 +43,7 @@ class ScreenManager():
 
     def draw_cells(self, matrix: list[list[int]]) -> None:
         '''
-            Draw each cells of the matrix given in the right size at the 
+            Draw each cells of the matrix given in the right size at the
             right posisition
         '''
         x_size: int = self.__screen.get_width() / len(matrix[0])

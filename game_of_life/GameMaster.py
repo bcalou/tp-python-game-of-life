@@ -1,4 +1,4 @@
-from game_of_life.Consts import Enums
+from game_of_life.Consts import START_MATRIX, SCREEN_HEIGHT, SCREEN_WIDTH, FPS
 from game_of_life.ScreenManager import ScreenManager
 from game_of_life.Matrix import MatrixManager
 
@@ -11,15 +11,12 @@ class GameMaster():
             the game behaviour.
         '''
 
-        self.__enums: Enums = Enums()
-
         self.__screen_manager: ScreenManager = ScreenManager(
-            self.__enums.SCREEN_WIDTH,
-            self.__enums.SCREEN_HEIGHT,
-            self.__enums.FPS)
+            SCREEN_WIDTH,
+            SCREEN_HEIGHT,
+            FPS)
 
-        self.__matrix_manager: MatrixManager = MatrixManager(
-            self.__enums.START_MATRIX)
+        self.__matrix_manager: MatrixManager = MatrixManager(START_MATRIX)
 
     def run(self) -> None:
         '''
