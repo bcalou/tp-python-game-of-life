@@ -24,7 +24,7 @@ class GameOfLife:
 
         Returns the cell state for the next iteration
 
-        A children class with different rules 
+        A children class with different rules
         must overwrite this function
         """
         # A cell stays/becomes alive if it has 3 neighbours

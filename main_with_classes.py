@@ -1,6 +1,8 @@
 import pygame
 from game_of_life.game_of_life import GameOfLife
-from game_of_life.default import GLIDER_GUN
+from game_of_life.default import GLIDER_GUN, HIGHLIFE_REPLICATOR
+from game_of_life.highlife import HighLife
+from game_of_life.board import generate_random_state
 
 
 WIDTH = 980
@@ -17,11 +19,14 @@ def main_with_classes():
     done = False
 
     print(f"SIMULATION SIZE: {(WIDTH//PIXEL_SIZE, HEIGHT//PIXEL_SIZE)}")
+
     # game_of_life: GameOfLife = GameOfLife(
     #     generate_random_state(WIDTH//PIXEL_SIZE, HEIGHT//PIXEL_SIZE)
     # )
 
-    game_of_life: GameOfLife = GameOfLife(GLIDER_GUN)
+    # game_of_life: GameOfLife = GameOfLife(GLIDER_GUN)
+
+    game_of_life: HighLife = HighLife(HIGHLIFE_REPLICATOR)
 
     # for y in range(0, 3):
     #         print(f"{get_neighbours_count(state, 0, y)}
