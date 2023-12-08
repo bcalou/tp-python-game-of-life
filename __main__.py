@@ -21,13 +21,7 @@ def main_with_classes():
 
     print(f"SIMULATION SIZE: {(WIDTH//PIXEL_SIZE, HEIGHT//PIXEL_SIZE)}")
 
-    # game_of_life: GameOfLife = GameOfLife(
-    #     generate_random_state(WIDTH//PIXEL_SIZE, HEIGHT//PIXEL_SIZE)
-    # )
-
-    # game_of_life: GameOfLife = GameOfLife(GLIDER_GUN)
-
-    game_of_life: HighLife = HighLife(HIGHLIFE_REPLICATOR)
+    game_of_life: GameOfLife = GameOfLife(GLIDER_GUN)
 
     # While the game is not over
     while not done:
@@ -37,6 +31,29 @@ def main_with_classes():
             # Quit the infinite loop when the user presses the close button
             if event.type == pygame.QUIT:
                 done = True
+
+            # Choose wich version of game of life is displayed
+            # base on keyboard input
+            if event.type == pygame.KEYDOWN:
+                match event.key:
+                    # the A key starts a standard simulation with a glider gun
+                    case pygame.K_a:
+                        game_of_life: GameOfLife = GameOfLife(GLIDER_GUN)
+
+                    # the Z key starts a variation of Conway's game of life
+                    # with a "replicator"
+                    case pygame.K_z:
+                        game_of_life: GameOfLife = HighLife(
+                            HIGHLIFE_REPLICATOR
+                            )
+
+                    # the E key starts a standard simulation with random cells
+                    case pygame.K_e:
+                        game_of_life: GameOfLife = GameOfLife(
+                            generate_random_state(
+                                WIDTH//PIXEL_SIZE, HEIGHT//PIXEL_SIZE
+                                )
+                            )
 
         # Effacer l'écran
         screen.fill((0, 0, 0))
