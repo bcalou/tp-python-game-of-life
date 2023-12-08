@@ -1,6 +1,6 @@
 import pygame
 from pygame import Surface
-from game_of_life.board import Board
+from game_of_life.board import Board, matrix, row
 
 
 DEAD: int = 0
@@ -14,7 +14,7 @@ class GameOfLife:
     https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
     """
 
-    def __init__(self, initial_state: list[list[int]]) -> None:
+    def __init__(self, initial_state: matrix) -> None:
         """
         Takes the original states of the game as parameter
         """
@@ -49,10 +49,10 @@ class GameOfLife:
         """
 
         # We start from an empty board and fill it cell by cell
-        new_state: list[list[int]] = []
+        new_state: matrix = []
         for y in range(self.__board.get_height()):
             # Same apply for the rows
-            new_row: list[int] = []
+            new_row: row = []
             for x in range(self.__board.get_width()):
                 neighbour_count: int = self.__board.get_neighbours_count(x, y)
                 cell_state: int = self.__board.get_cell(x, y)

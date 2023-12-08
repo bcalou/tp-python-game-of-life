@@ -1,14 +1,18 @@
 import random
 
 
-def generate_random_line(width: int) -> list[int]:
+type row = list[int]
+type matrix = list[row]
+
+
+def generate_random_line(width: int) -> row:
     """
     Randomly generates a line of size: `width` with ones and zeroes
     """
     return [random.randint(0, 1) for _ in range(width)]
 
 
-def generate_random_state(width: int, height: int) -> list[list[int]]:
+def generate_random_state(width: int, height: int) -> matrix:
     """
     Randomly generates a board of size: `width`*`height` with ones and zeroes
     """
@@ -20,16 +24,16 @@ class Board:
     Wrapper for a basic 2D Matrix
     """
 
-    __board: list[list[int]]
+    __board: matrix
 
-    def __init__(self, state: list[list[int]]) -> None:
+    def __init__(self, state: matrix) -> None:
         """
         Takes the original states of the game as parameter
         """
 
         self.__width: int = len(state[0])
         self.__height: int = len(state)
-        self.__board: list[list[int]] = state
+        self.__board: matrix = state
 
     def get_neighbours_count(self, x: int, y: int) -> int:
         """
@@ -73,7 +77,7 @@ class Board:
             return self.__board[y][x]
         return 0
 
-    def set_board(self, new_state: list[list[int]]):
+    def set_board(self, new_state: matrix):
         """
         Overwrite the previous board with a new one
 
