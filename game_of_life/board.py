@@ -44,6 +44,8 @@ class Board:
         for neighbour_x in x_coords:
             for neighbour_y in y_coords:
                 if neighbour_x is not x or neighbour_y is not y:
+                    # Counts the number of living cells
+                    #   See ALIVE & DEAD definitions in game_of_life.py
                     count += self.get_cell(neighbour_x, neighbour_y)
 
         return count

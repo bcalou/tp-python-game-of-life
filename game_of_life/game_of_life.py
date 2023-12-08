@@ -47,13 +47,18 @@ class GameOfLife:
         Updates the internal state of the game according to the rules defined
         in method `GameOfLife.game_rules()`
         """
+
+        # We start from an empty board and fill it cell by cell
         new_state: list[list[int]] = []
         for y in range(self.__board.get_height()):
+            # Same apply for the rows
             new_row: list[int] = []
             for x in range(self.__board.get_width()):
                 neighbour_count: int = self.__board.get_neighbours_count(x, y)
                 cell_state: int = self.__board.get_cell(x, y)
 
+                # Compute the next state of the cell and
+                # add it to the current row
                 new_row.append(
                     self.get_cell_next_state(cell_state, neighbour_count)
                 )
@@ -66,7 +71,13 @@ class GameOfLife:
         """Print cell to the screen according to the state"""
         for y in range(self.__board.get_height()):
             for x in range(self.__board.get_width()):
+                # Different colors if cell is ALIVE or DEAD
+                #   See ALIVE and DEAD definitions
+                # ALIVE*220+35 = 255     DEAD*220+35 = 35
                 color: int = self.__board.get_cell(x, y)*220 + 35
+
+                # Width & Height are pixel_size - 1
+                # It leaves a 1px gap between each cells
                 pygame.draw.rect(screen, (color, color, color),
                                  (x*pixel_size, y*pixel_size,
                                  pixel_size-1, pixel_size-1))
