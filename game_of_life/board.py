@@ -66,8 +66,8 @@ class Board:
 
         if the coordinates are invalid, return 0 (DEAD)
         """
-        if x >= 0 and x < self.get_width() and \
-           y >= 0 and y < self.get_height():
+        if x >= 0 and x < self.__width and \
+           y >= 0 and y < self.__height:
             return self.__board[y][x]
         return 0
 
