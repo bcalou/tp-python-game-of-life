@@ -10,7 +10,11 @@ class HighLife(GameOfLife):
     Highlife: https://en.wikipedia.org/wiki/Highlife_(cellular_automaton)
     """
 
-    def game_rules(self, cell_state: int, neighbour_count: int) -> int:
+    def get_cell_next_state(
+            self,
+            cell_state: int,
+            neighbour_count: int
+            ) -> int:
         """
         Highlife overwrites the default rule of the game of life.
 

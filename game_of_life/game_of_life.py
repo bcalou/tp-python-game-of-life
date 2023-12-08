@@ -20,7 +20,11 @@ class GameOfLife:
         """
         self.__board: Board = Board(initial_state)
 
-    def game_rules(self, cell_state: int, neighbour_count: int) -> int:
+    def get_cell_next_state(
+            self,
+            cell_state: int,
+            neighbour_count: int
+            ) -> int:
         """
         Defines the rule of the game of life.
 
@@ -50,7 +54,9 @@ class GameOfLife:
                 neighbour_count: int = self.__board.get_neighbours_count(x, y)
                 cell_state: int = self.__board.get_cell(x, y)
 
-                new_row.append(self.game_rules(cell_state, neighbour_count))
+                new_row.append(
+                    self.get_cell_next_state(cell_state, neighbour_count)
+                )
 
             new_state.append(new_row)
 
