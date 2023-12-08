@@ -1,3 +1,5 @@
+import pygame
+from pygame import Surface
 from game_of_life.board import Board
 
 
@@ -42,11 +44,11 @@ class GameOfLife:
         in method `GameOfLife.game_rules()`
         """
         new_state: list[list[int]] = []
-        for y in range(self.get_height()):
+        for y in range(self.__board.get_height()):
             new_row: list[int] = []
-            for x in range(self.get_width()):
+            for x in range(self.__board.get_width()):
                 neighbour_count: int = self.__board.get_neighbours_count(x, y)
-                cell_state: int = self.get_cell(x, y)
+                cell_state: int = self.__board.get_cell(x, y)
 
                 new_row.append(self.game_rules(cell_state, neighbour_count))
 
@@ -54,22 +56,11 @@ class GameOfLife:
 
         self.__board.set_board(new_state)
 
-    def get_width(self) -> int:
-        """
-        Returns the width of the board
-        """
-        return self.__board.get_width()
-
-    def get_height(self) -> int:
-        """
-        Returns the height of the board
-        """
-        return self.__board.get_height()
-
-    def get_cell(self, x: int, y: int) -> int:
-        """
-        Returns the state of a cell at coordinates `x` & `y`
-
-        if the coordinates are invalid, return 0 (DEAD)
-        """
-        return self.__board.get_cell(x, y)
+    def print_state(self, screen: Surface, pixel_size: int) -> None:
+        """Print cell to the screen according to the state"""
+        for y in range(self.__board.get_height()):
+            for x in range(self.__board.get_width()):
+                color: int = self.__board.get_cell(x, y)*220 + 35
+                pygame.draw.rect(screen, (color, color, color),
+                                 (x*pixel_size, y*pixel_size,
+                                 pixel_size-1, pixel_size-1))
