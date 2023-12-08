@@ -11,21 +11,24 @@ class Screen:
     def __init__(self):
         """Constructeur"""
 
+        # Initialiser l'écran de jeu avec pygame
         pygame.init()
-        self.__screen = pygame.display.set_mode(SCREEN_SIZE)
+        self._screen = pygame.display.set_mode(SCREEN_SIZE)
         pygame.display.set_caption("Game of Life")
 
     def draw_grid(self, grid: Grid):
         """Afficher la grille à l'écran"""
 
-        self.__screen.fill(COLORS['cyan'])
+        # Mettre à jour l'écran en affichant la grille passée en paramètre
+        self._screen.fill(COLORS['black'])  # Fond d'écran
         for row_index, row in enumerate(grid.matrix):
             for cell_index, cell in enumerate(row):
                 if cell == 1:
+                    # Dessine une cellule à carré pour chaque cellule à 1
                     x = cell_index * CELL_SIZE
                     y = row_index * CELL_SIZE
                     pygame.draw.rect(
-                        self.__screen, PRESET_COLOR,
+                        self._screen, PRESET_COLOR,
                         (x, y, CELL_SIZE, CELL_SIZE)
                     )
 

@@ -3,3 +3,21 @@ pycodestyle
 ajouter des commentaires
 déplacer variables locales ?
 type variables
+
+variables locales en haut impossible de rendre privée ?
+
+à tester
+
+        for row_id in range(__grid_len_row):
+            for col_id in range(__grid_len_col):
+                # Compter le nombre de voisins vivants
+                live_neighbors = self.__count_living_neighbors(row_id, col_id)
+                # Appliquer les règles du jeu de la vie
+                if self.matrix[row_id][col_id] == 1:  # Si cellule vivante
+                    if live_neighbors > 2 or live_neighbors < 3:
+                        # Survie
+                        __next_state[row_id][col_id] = 1
+                else:  # Si cellule morte
+                    if live_neighbors == 3:
+                        # Naissance
+                        __next_state[row_id][col_id] = 1

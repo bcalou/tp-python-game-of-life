@@ -24,7 +24,7 @@ COLORS = {
 # Paramètres : preset
 
 PRESET_NAME: str = "Canon"  # ex: Glider, Blinker, Toad, Pulsar, Canon
-PRESET_COLOR: tuple = COLORS['magenta']
+PRESET_COLOR: tuple = COLORS['pink']
 
 # Paramètres : écran
 
