@@ -75,7 +75,7 @@ def main():
 
         print("Update !")
         grid.draw_next_state()
-        clock.tick(0.5)
+        clock.tick(60)
 
     pygame.quit()
     
