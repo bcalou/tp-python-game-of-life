@@ -43,22 +43,19 @@ class Game():
 
         return self.__current_state
 
-    def __count_neighbors(self, position_x: int, position_y: int) -> int:
+    def __count_neighbors(self, initial_x: int, initial_y: int) -> int:
         """return how many neighbors a cell has"""
 
         neighbors: int = 0
 
-        x: int = position_x - 1
-        y: int = position_y - 1
-
         for modif_y in range(3):
-            new_y: int = y + modif_y
+            y: int = initial_y - 1 + modif_y
             for modif_x in range(3):
-                new_x = x + modif_x
+                x = initial_x - 1 + modif_x
                 # We do not count the cell itself nor anything outside the grid
-                if (new_x != position_x or new_y != position_y) \
-                    and self.__is_cell_on_the_grid(new_x, new_y) \
-                        and self.__current_state[new_y][new_x] == 1:
+                if (x != initial_x or y != initial_y) \
+                    and self.__is_cell_on_the_grid(x, y) \
+                        and self.__current_state[y][x] == 1:
                     neighbors += 1
 
         return neighbors
@@ -67,4 +64,4 @@ class Game():
         """Test if a given cell exists on the grid or not,
         meaning coordinates should be between 0,0 and the size of the grid"""
 
-        return 0 <= x < self.__grid_size_x and y < self.__grid_size_y
+        return 0 <= x < self.__grid_size_x and 0 <= y < self.__grid_size_y
