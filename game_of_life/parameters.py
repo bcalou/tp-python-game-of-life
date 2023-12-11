@@ -24,10 +24,10 @@ COLORS = {
 # Paramètres : preset
 
 PRESET_NAME: str = "Canon"  # ex: Glider, Blinker, Toad, Pulsar, Canon
-PRESET_COLOR: tuple = COLORS['pink']
+PRESET_COLOR: tuple = COLORS['white']
 
 # Paramètres : écran
 
 SCREEN_SIZE: tuple[int, int] = (1200, 700)
 CELL_SIZE: int = 5
-FRAME_RATE: int = 10
+FRAME_RATE: int = 50

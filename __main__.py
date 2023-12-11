@@ -1,4 +1,4 @@
-# main.py
+"""main.py"""
 
 import sys
 import os
@@ -9,7 +9,7 @@ from game_of_life.screen import Screen
 from game_of_life.grid import Grid
 
 
-def read_json():
+def __read_json():
     """Lire les données JSON à partir du fichier spécifié"""
     current_directory = os.path.dirname(__file__)
     json_folder_path = os.path.join(current_directory, 'game_of_life')
@@ -20,11 +20,18 @@ def read_json():
     return donnees_json
 
 
-def main():
-    """Magie..."""
+def __exit_game():
+    """Quitter le jeu"""
+
+    pygame.quit()
+    sys.exit()
+
+
+def __main():
+    """Fonction principale"""
     # Charger le preset depuis le fichier JSON
 
-    presets_data = read_json()
+    presets_data = __read_json()
     try:
         preset = presets_data["Presets"][PRESET_NAME]
     except KeyError:
@@ -41,7 +48,7 @@ def main():
     clock = pygame.time.Clock()
     close = False
 
-    # Jeu
+    # Boucle de jeu
 
     while not close:
         # Evènements de jeu
@@ -59,10 +66,8 @@ def main():
 
         # Quitter si la grille est vide
         if grid.is_grid_empty():
-            close = True
-
-    pygame.quit()
-    sys.exit()
+            __exit_game()
 
 
-main()
+if __name__ == "__main__":
+    __main()
