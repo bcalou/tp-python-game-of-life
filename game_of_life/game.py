@@ -67,27 +67,17 @@ class Game:
                 # Quit the infinite loop when the user presses the close button
                 if event.type == pygame.QUIT:
                     self._done = True
-
-            # For each iteration
+                    
+            
             for index_line in range(len(self._state)):
                 for index_column in range(len(self._state[index_line])):
-                    if self._state[index_line][index_column] == 1:
-                        # draw an alive cell
-                        pygame.draw.rect(self._screen,
-                                         self._alive_cell_color, (
-                                          index_column * self._cell_size_x,
-                                          index_line * self._cell_size_y,
-                                          self._cell_size_x, self._cell_size_y)
-                                         )
-                    else:
-                        # draw a death cell
-                        pygame.draw.rect(self._screen,
-                                         self._death_cell_color, (
-                                          index_column * self._cell_size_x,
-                                          index_line * self._cell_size_y,
-                                          self._cell_size_x,
-                                          self._cell_size_y)
-                                         )
+                    cell_color = self._alive_cell_color if self._state[index_line][index_column] == 1 else self._death_cell_color
+                    
+                    pygame.draw.rect(self._screen, cell_color, (
+                        index_column * self._cell_size_x,
+                        index_line * self._cell_size_y,
+                        self._cell_size_x, self._cell_size_y
+                    ))
 
             # Called at the end of each update. Allows to apply modifications
             pygame.display.flip()
@@ -135,42 +125,16 @@ class Game:
         '''Private function which return the number of alive neighbor cell'''
 
         number_neighbor: int = 0
-
-        # Get neighbors cells by checking every time if they exist
-        # top left cell
-        if index_line > 0 and index_column > 0:
-            if self._state[index_line - 1][index_column - 1] == 1:
+        
+        neighbors_position = [
+            (-1, -1), (-1, 0), (-1, 1),
+            (0, -1),         (0,1),
+            (1, -1), (1, 0), (1, 1)
+        ]
+        
+        for i, j in neighbors_position:
+            new_line, new_column = index_line + i, index_column + j
+            
+            if 0 <= new_line < len(self._state) and 0 <= new_column < len(self._state[new_line]) and self._state[new_line][new_column] == 1:
                 number_neighbor += 1
-        # top cell
-        if index_line > 0:
-            if self._state[index_line - 1][index_column] == 1:
-                number_neighbor += 1
-        # top right cell
-        if index_line > 0 and index_column < len(self._state[index_line]) - 1:
-            if self._state[index_line - 1][index_column + 1] == 1:
-                number_neighbor += 1
-
-        # left cell
-        if index_column > 0:
-            if self._state[index_line][index_column - 1] == 1:
-                number_neighbor += 1
-        # right cell
-        if index_column < len(self._state[index_line]) - 1:
-            if self._state[index_line][index_column + 1] == 1:
-                number_neighbor += 1
-
-        # bottom left cell
-        if index_line < len(self._state) - 1 and index_column > 0:
-            if self._state[index_line + 1][index_column - 1] == 1:
-                number_neighbor += 1
-        # bottom cell
-        if index_line < len(self._state) - 1:
-            if self._state[index_line + 1][index_column] == 1:
-                number_neighbor += 1
-        # bottom right cell
-        if index_line < len(self._state) - 1 and \
-                index_column < len(self._state[index_line]) - 1:
-            if self._state[index_line + 1][index_column + 1] == 1:
-                number_neighbor += 1
-
         return number_neighbor
