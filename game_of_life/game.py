@@ -68,7 +68,6 @@ class Game:
                 if event.type == pygame.QUIT:
                     self._done = True
                     
-            
             for index_line in range(len(self._state)):
                 for index_column in range(len(self._state[index_line])):
                     cell_color = self._alive_cell_color if self._state[index_line][index_column] == 1 else self._death_cell_color
