@@ -1,10 +1,12 @@
 from game_of_life import constants
 
+GameState = list[list[int]]
+
 
 class Game():
     """Manage the simulation of the game of life"""
 
-    __current_state: list[list[int]]
+    __current_state: GameState
     __grid_size_x: int
     __grid_size_y: int
 
@@ -13,11 +15,11 @@ class Game():
         self.__grid_size_x = len(constants.INITIAL_STATE[0])
         self.__grid_size_y = len(constants.INITIAL_STATE)
 
-    def get_next_state(self) -> list[list[int]]:
+    def get_next_state(self) -> GameState:
         """Calculate and return the current state of the simulation
         by killing or creating cells"""
 
-        new_state: list[list[int]] = []
+        new_state: GameState = []
 
         for line in range(self.__grid_size_y):
             new_line: list[int] = []
