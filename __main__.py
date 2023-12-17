@@ -4,6 +4,7 @@ from game_of_life.view_manager import View
 
 pygame.init()
 
+
 def main():
     """Simulate the game of life"""
 
