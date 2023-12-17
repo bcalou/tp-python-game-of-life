@@ -60,30 +60,27 @@ class Game:
 
         # While the game is not over
         while not self._done:
-
             # Listen for all events
             for event in pygame.event.get():
-
-                # Quit the infinite loop when the user presses the close button
                 if event.type == pygame.QUIT:
                     self._done = True
-                    
             for index_line in range(len(self._state)):
                 for index_column in range(len(self._state[index_line])):
-                    cell_color = self._alive_cell_color if self._state[index_line][index_column] == 1 else self._death_cell_color
-                    
+                    cell_value = self._state[index_line][index_column]
+                    cell_color = {
+                        1: self._alive_cell_color,
+                        0: self._death_cell_color}.get(
+                        cell_value,
+                        self._death_cell_color
+                        )
                     pygame.draw.rect(self._screen, cell_color, (
                         index_column * self._cell_size_x,
                         index_line * self._cell_size_y,
                         self._cell_size_x, self._cell_size_y
                     ))
-
-            # Called at the end of each update. Allows to apply modifications
-            pygame.display.flip()
-
+                pygame.display.flip()
             self._clock.tick(self._fps)
             self._state = self._get_next_state()
-
         pygame.quit()
 
     def _get_next_state(self) -> Matrix:
@@ -124,16 +121,17 @@ class Game:
         '''Private function which return the number of alive neighbor cell'''
 
         number_neighbor: int = 0
-        
         neighbors_position = [
             (-1, -1), (-1, 0), (-1, 1),
-            (0, -1),         (0,1),
+            (0, -1), (0, 1),
             (1, -1), (1, 0), (1, 1)
         ]
-        
         for i, j in neighbors_position:
             new_line, new_column = index_line + i, index_column + j
-            
-            if 0 <= new_line < len(self._state) and 0 <= new_column < len(self._state[new_line]) and self._state[new_line][new_column] == 1:
+            if (
+                0 <= new_line < len(self._state) and
+                0 <= new_column < len(self._state[new_line]) and
+                self._state[new_line][new_column] == 1
+            ):
                 number_neighbor += 1
         return number_neighbor
