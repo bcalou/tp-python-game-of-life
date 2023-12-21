@@ -33,7 +33,7 @@ class GameController:
             # Update the screen
             self.grid_manager.draw_grid(self.generation)
 
-            clock.tick(30)
+            clock.tick(FPS)
 
             if self.paused:
                 continue
@@ -53,12 +53,13 @@ class GameController:
             if event.type == pygame.QUIT:
                 self.done = True
 
-            # Check if buttons are clicked, if so, execute the corresponding action
+            # Check if buttons are clicked, if so,
+            # execute the corresponding action
             for button in self.grid_manager.buttons:
                 if button.hovered:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         match button.text:
-                            
+
                             # Pause the game
                             case "Pause":
                                 button.text = "Play"
@@ -87,4 +88,5 @@ class GameController:
                                 if self.generation > 0:
                                     self.generation -= 1
                                     self.grid_manager.step_back()
-                                    self.grid_manager.draw_grid(self.generation)
+                                    self.grid_manager.draw_grid(
+                                        self.generation)
