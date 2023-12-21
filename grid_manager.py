@@ -67,6 +67,7 @@ class GridManager:
 
         pygame.display.set_caption("Game of Life")
 
+        # Create the buttons
         self.pause_button = Button("Pause", Position(x=PAUSE_BUTTON_POSITION_WIDTH, y=BUTTON_POSITION_HEIGHT),
                                    "icons/pause_button.png")
 
@@ -97,16 +98,20 @@ class GridManager:
 
         :return: None
         """
+        # Add the current grid to the history for the step back feature
         self.history.append(copy.deepcopy(self.grid))
         next_grid = copy.deepcopy(self.grid)
 
+        # Iterate over the grid and set the next state of each cell
         for row_index, row in enumerate(self.grid):
             for cell_index in range(len(row)):
                 next_grid[row_index][cell_index] = self.__get_next_cell_state(row_index, cell_index)
 
+        # Remove the oldest grid from the history if the history is too big
         if len(self.history) > MAX_HISTORY_SIZE:
             del self.history[0]
 
+        # Set the grid to the next grid
         self.grid = next_grid
 
     def step_back(self) -> None:
@@ -142,22 +147,28 @@ class GridManager:
 
         :param row_index: Height index of the cell
         :param cell_index: Width index of the cell
-        :return:
+        :return: The number of neighbors of the given cell
         """
         neighbors = 0
 
         for neighbor in NEIGHBORS:
-            try:
-                if self.grid[row_index + neighbor[0]][cell_index + neighbor[1]] == 1:
-                    neighbors += 1
-            except IndexError:
-                pass
+            neighbor_x_index = row_index + neighbor[0]
+            neighbor_y_index = cell_index + neighbor[1]
+
+            # If the neighbor is out of bounds, skip it
+            if (neighbor_x_index < 0 or neighbor_x_index >= len(
+                    self.grid) or neighbor_y_index < 0 or neighbor_y_index >= len(self.grid[0])):
+                continue
+
+            # If the neighbor is alive, increment the neighbors counter
+            if self.grid[neighbor_x_index][neighbor_y_index] is ALIVE:
+                neighbors += 1
 
         return neighbors
 
     def draw_grid(self, generation: int) -> None:
         """
-        Draws the current grid.
+        Draws the current grid on the screen.
 
         :return: None
         """
@@ -165,10 +176,11 @@ class GridManager:
         # Fill the screen with black
         self.screen.fill(BLACK_COLOR)
 
-        # Draw the generation number
+        # Write the generation number in the top left corner of the screen
         generation_text = self.font.render(f"Generation : {generation}", True, WHITE_COLOR)
         self.screen.blit(generation_text, (10, 10))
 
+        # Check if button is hovered, if so, change its color and write its text above it
         for button in self.buttons:
             if button.is_hovered(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]):
                 button.color = GREY_COLOR
@@ -202,6 +214,7 @@ class GridManager:
         :param button: The button to draw
         :return: None
         """
+
         # Draw the button background
         pygame.draw.rect(self.screen, button.color, button.rect)
 
@@ -213,20 +226,3 @@ class GridManager:
             text = self.font.render(button.text, True, BLACK_COLOR)
             self.screen.blit(text, (button.position['x'] - text.get_width() // 2,
                                     button.position['y'] - text.get_height() // 2))
-
-    def get_grid(self) -> grid_type:
-        """
-        Returns the current grid.
-
-        :return: The current grid
-        """
-        return self.grid
-
-    def set_grid(self, grid: grid_type) -> None:
-        """
-        Sets the current grid.
-
-        :param grid: The new grid
-        :return: None
-        """
-        self.grid = grid

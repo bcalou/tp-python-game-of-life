@@ -2,7 +2,6 @@ CELL_SIZE: int = 25
 BLACK_COLOR: tuple[int, int, int] = (0, 0, 0)
 WHITE_COLOR: tuple[int, int, int] = (255, 255, 255)
 GREY_COLOR: tuple[int, int, int] = (128, 128, 128)
-GREEN_COLOR: tuple[int, int, int] = (0, 255, 0)
 
 SCREEN_WIDTH: int = 1000
 SCREEN_HEIGHT: int = 1000
@@ -11,7 +10,7 @@ BUTTON_WIDTH: int = 64
 BUTTON_HEIGHT: int = 64
 
 BUTTON_POSITION_HEIGHT: int = SCREEN_HEIGHT - 100
-PAUSE_BUTTON_POSITION_WIDTH: int = SCREEN_WIDTH // 2 - BUTTON_WIDTH // 2
+PAUSE_BUTTON_POSITION_WIDTH: int = (SCREEN_WIDTH // 2)
 
 DEAD: int = 0
 ALIVE: int = 1
