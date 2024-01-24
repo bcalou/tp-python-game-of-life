@@ -10,51 +10,51 @@ class Game:
     """
 
     def __init__(self, board: Board, state: State):
-        self._board: Board = board
-        self._state: State = state
+        self.__board: Board = board
+        self.__state: State = state
 
         # This will be used to compute the next state
-        self._next_game_state: State
+        self.__next_game_state: State
 
         # The first state needs no computation, let's draw it immediatly
-        self._state.for_each_cell_alive(self._board.draw_cell)
+        self.__state.for_each_cell_alive(self.__board.draw_cell)
 
         # Commit to the screen
-        self._board.commit()
+        self.__board.commit()
 
     def update(self):
         """Main loop for the game, compute and draw the next state"""
         # First, erase everything
-        self._board.clear()
+        self.__board.clear()
 
-        self._compute_next_game_state()
+        self.__compute_next_game_state()
 
         # All cells are ready to be painted, update the board
-        self._board.commit()
+        self.__board.commit()
 
-    def _compute_next_game_state(self):
+    def __compute_next_game_state(self):
         """Compute the next state according to the game of life's laws"""
         # Generate an empty matrix that will store the next state
         # We need to do this to keep the initial state intact while we
         # check for changes
-        self._next_game_state = self._state.get_new_empty_state()
+        self.__next_game_state = self.__state.get_new_empty_state()
 
         # Compute the next game state by looking at each cell of the current
         # game state
-        self._state.for_each_cell(self._test_cell_for_next_state)
+        self.__state.for_each_cell(self.__test_cell_for_next_state)
 
         # The next state replaces the current state
-        self._state = self._next_game_state
+        self.__state = self.__next_game_state
 
-    def _test_cell_for_next_state(self, coordinates: Coordinates):
+    def __test_cell_for_next_state(self, coordinates: Coordinates):
         """Test if the cell should live and add it to the next state"""
 
         # How many neighbours does this cell have?
-        neighbours_count = self._state.get_neighbours_count(coordinates)
+        neighbours_count = self.__state.get_neighbours_count(coordinates)
 
         # A living cell survives if it has 2 or 3 neighbours
         cell_survives = (
-          self._state.is_alive(coordinates)
+          self.__state.is_alive(coordinates)
           and 2 <= neighbours_count <= 3
         )
 
@@ -64,5 +64,5 @@ class Game:
         if cell_survives or cell_births:
             # Draw the cell and mark it as alive in the next game state
 
-            self._board.draw_cell(coordinates)
-            self._next_game_state.set_cell_state(coordinates, State.ALIVE)
+            self.__board.draw_cell(coordinates)
+            self.__next_game_state.set_cell_state(coordinates, State.ALIVE)

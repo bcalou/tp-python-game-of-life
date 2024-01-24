@@ -13,30 +13,30 @@ class Board:
     SCREEN_SIZE: tuple[int, int] = (1000, 1000)
 
     def __init__(self, initial_state: State):
-        self._screen: Screen = pygame.display.set_mode(self.SCREEN_SIZE)
+        self.__screen: Screen = pygame.display.set_mode(self.SCREEN_SIZE)
 
         # Get the ideal width and height for a cell
-        screen_width, screen_height = self._screen.get_size()
+        screen_width, screen_height = self.__screen.get_size()
         ideal_cell_width = screen_width // initial_state.get_width()
         ideal_cell_height = screen_height // initial_state.get_height()
 
         # Keep the lowest of these values as the final cell size
-        self._cell_size = min(ideal_cell_width, ideal_cell_height)
+        self.__cell_size = min(ideal_cell_width, ideal_cell_height)
 
     def clear(self):
         """Clear the whole board"""
-        self._screen.fill(self.COLOR_DEAD)
+        self.__screen.fill(self.COLOR_DEAD)
 
     def draw_cell(self, coordinates: Coordinates):
         """Draw a cell at the given position"""
         pygame.draw.rect(
-            self._screen,
+            self.__screen,
             self.COLOR_ALIVE,
             [
-                coordinates[0] * self._cell_size,
-                coordinates[1] * self._cell_size,
-                self._cell_size,
-                self._cell_size
+                coordinates[0] * self.__cell_size,
+                coordinates[1] * self.__cell_size,
+                self.__cell_size,
+                self.__cell_size
             ]
         )
 

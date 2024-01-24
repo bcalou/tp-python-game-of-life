@@ -18,24 +18,24 @@ class State:
     ]
 
     def __init__(self, cells: CellsMatrix):
-        self._cells: CellsMatrix = cells
-        self._height: int = len(cells)
-        self._width: int = len(cells[0])
+        self.__cells: CellsMatrix = cells
+        self.__height: int = len(cells)
+        self.__width: int = len(cells[0])
 
     def get_height(self) -> int:
         """Get the height of the matrix"""
 
-        return self._height
+        return self.__height
 
     def get_width(self) -> int:
         """Get the width of the matrix"""
 
-        return self._width
+        return self.__width
 
     def for_each_cell(self, function: Callable) -> None:
         """Execute the given function for each cell, passing the coordinates"""
-        for cell_x in range(self._width):
-            for cell_y in range(self._height):
+        for cell_x in range(self.__width):
+            for cell_y in range(self.__height):
                 function((cell_x, cell_y))
 
     def for_each_cell_alive(self, function: Callable) -> None:
@@ -51,8 +51,8 @@ class State:
 
         # Test that the cell is inside the matrix's bounds and alive
         return (
-            0 <= coordinates[0] < self._width
-            and 0 <= coordinates[1] < self._height
+            0 <= coordinates[0] < self.__width
+            and 0 <= coordinates[1] < self.__height
             and self.get_cell_state(coordinates) == self.ALIVE
         )
 
@@ -62,7 +62,7 @@ class State:
         [1] and [0] are inverted because the first level of the array is the
         rows, which correspond to the the y coordinate
         """
-        return self._cells[coordinates[1]][coordinates[0]]
+        return self.__cells[coordinates[1]][coordinates[0]]
 
     def set_cell_state(
         self,
@@ -74,7 +74,7 @@ class State:
         [1] and [0] are inverted because the first level of the array is the
         rows, which correspond to the the y coordinate
         """
-        self._cells[coordinates[1]][coordinates[0]] = cell_state
+        self.__cells[coordinates[1]][coordinates[0]] = cell_state
 
     def get_neighbours_count(self, coordinates: Coordinates) -> int:
         """Get the number of cells alive around the given one"""
@@ -96,7 +96,7 @@ class State:
         """Get a new state of the same size, filled with dead cells"""
 
         empty_state = [
-            ([self.DEAD] * self._width) for _ in range(self._height)
+            ([self.DEAD] * self.__width) for _ in range(self.__height)
         ]
 
         return State(empty_state)
