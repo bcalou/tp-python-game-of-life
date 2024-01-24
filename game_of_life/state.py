@@ -51,8 +51,7 @@ class State:
 
         # Test that the cell is inside the matrix's bounds and alive
         return (
-            0 <= coordinates[0] < self.__width
-            and 0 <= coordinates[1] < self.__height
+            self.__cell_exists(coordinates)
             and self.get_cell_state(coordinates) == self.ALIVE
         )
 
@@ -62,6 +61,10 @@ class State:
         [1] and [0] are inverted because the first level of the array is the
         rows, which correspond to the the y coordinate
         """
+
+        if not self.__cell_exists(coordinates):
+            return self.DEAD
+
         return self.__cells[coordinates[1]][coordinates[0]]
 
     def set_cell_state(
@@ -79,18 +82,10 @@ class State:
     def get_neighbours_count(self, coordinates: Coordinates) -> int:
         """Get the number of cells alive around the given one"""
 
-        # Find the potential neighbours that are actually alive
-        neighbours = list(filter(
-            lambda neighbour_relative_coordinates: self.is_alive(
-                (
-                    coordinates[0] + neighbour_relative_coordinates[0],
-                    coordinates[1] + neighbour_relative_coordinates[1]
-                )
-            ),
-            self.NEIGHBOURHOOD_COORDINATES
-        ))
-
-        return len(neighbours)
+        return sum(
+            self.get_cell_state((coordinates[0] + x, coordinates[1] + y))
+            for x, y in self.NEIGHBOURHOOD_COORDINATES
+        )
 
     def get_new_empty_state(self) -> 'State':
         """Get a new state of the same size, filled with dead cells"""
@@ -100,3 +95,11 @@ class State:
         ]
 
         return State(empty_state)
+
+    def __cell_exists(self, coordinates: Coordinates) -> bool:
+        """Returns wether the given cell coordinates exists"""
+
+        return (
+            0 <= coordinates[0] < self.__width
+            and 0 <= coordinates[1] < self.__height
+        )
