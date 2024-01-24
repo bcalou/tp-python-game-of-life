@@ -1,9 +1,4 @@
-"""
-Initial state
-"""
-
 from game_of_life.types import CellsMatrix
-
 
 INITIAL_STATE: CellsMatrix = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

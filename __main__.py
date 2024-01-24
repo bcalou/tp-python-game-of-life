@@ -1,13 +1,11 @@
-"""
-Main file
-"""
-
 import pygame
 
 from game_of_life.initial_state import INITIAL_STATE
 from game_of_life.game import Game
 from game_of_life.board import Board
 from game_of_life.state import State
+
+FRAMES_PER_SECOND = 30
 
 
 def main():
@@ -25,7 +23,7 @@ def start(game: Game):
 
     clock = pygame.time.Clock()
 
-    done: bool = False
+    done = False
 
     # Game loops until it's over
     while not done:
@@ -37,7 +35,7 @@ def start(game: Game):
             if event.type == pygame.QUIT:
                 done = True
 
-        clock.tick(Board.FRAMES_PER_SECOND)
+        clock.tick(FRAMES_PER_SECOND)
         game.update()
 
     pygame.quit()

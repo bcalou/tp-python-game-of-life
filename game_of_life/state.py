@@ -9,19 +9,12 @@ from game_of_life.types import Coordinates, CellState, CellsMatrix
 
 class State:
     """Represents the state of a game of life at a specific moment"""
-    DEAD = 0
-    ALIVE = 1
+    DEAD: CellState = 0
+    ALIVE: CellState = 1
 
     # The relative positions of the 8 potential neighbours for a cell
     NEIGHBOURHOOD_COORDINATES: list[Coordinates] = [
-        (-1, -1),
-        (-1, 0),
-        (-1, 1),
-        (0, -1),
-        (0, 1),
-        (1, -1),
-        (1, 0),
-        (1, 1)
+        (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)
     ]
 
     def __init__(self, cells: CellsMatrix):
@@ -39,13 +32,13 @@ class State:
 
         return self._width
 
-    def for_each_cell(self, function: Callable):
+    def for_each_cell(self, function: Callable) -> None:
         """Execute the given function for each cell, passing the coordinates"""
         for cell_x in range(self._width):
             for cell_y in range(self._height):
                 function((cell_x, cell_y))
 
-    def for_each_cell_alive(self, function: Callable):
+    def for_each_cell_alive(self, function: Callable) -> None:
         """Execute the given function for each cell which is alive"""
         self.for_each_cell(
             lambda coordinates: (
@@ -71,8 +64,12 @@ class State:
         """
         return self._cells[coordinates[1]][coordinates[0]]
 
-    def set_cell_state(self, coordinates: Coordinates, cell_state: CellState):
-        """Get the state of the cell for at the given coordinates
+    def set_cell_state(
+        self,
+        coordinates: Coordinates,
+        cell_state: CellState
+    ) -> None:
+        """Set the state of the cell for at the given coordinates
 
         [1] and [0] are inverted because the first level of the array is the
         rows, which correspond to the the y coordinate
@@ -83,7 +80,7 @@ class State:
         """Get the number of cells alive around the given one"""
 
         # Find the potential neighbours that are actually alive
-        neighbours: list[Coordinates] = list(filter(
+        neighbours = list(filter(
             lambda neighbour_relative_coordinates: self.is_alive(
                 (
                     coordinates[0] + neighbour_relative_coordinates[0],
@@ -98,7 +95,7 @@ class State:
     def get_new_empty_state(self) -> 'State':
         """Get a new state of the same size, filled with dead cells"""
 
-        empty_state: CellsMatrix = [
+        empty_state = [
             ([self.DEAD] * self._width) for _ in range(self._height)
         ]
 
